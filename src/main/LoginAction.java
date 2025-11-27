@@ -6,10 +6,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
 
 public class LoginAction extends Action {
-
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-        // login.jsp にフォワード
-        req.getRequestDispatcher("/login.jsp").forward(req, res);
+        // ログインページを表示
+        req.getRequestDispatcher("/main/login.jsp").forward(req, res);
     }
 }

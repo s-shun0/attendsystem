@@ -21,7 +21,7 @@ public class FrontController extends HttpServlet {
 
             // パッケージ名 Main を付ける
 
-            String name = "Main"+ path.replace(".action", "Action").replace('/', '.');
+            String name =path.replace(".action", "Action").replace('/', '.');
 
             // Action クラスをロード
 

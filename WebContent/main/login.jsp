@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ taglib prefix="c" uri="https://jakarta.ee/taglibs/core"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -37,7 +37,7 @@
                     </c:if>
 
                     <!-- ログインフォーム -->
-                   	<form action="${pageContext.request.contextPath}/main/LoginExecute.action" method="post">
+                    <form action="${pageContext.request.contextPath}/main/LoginExecute.action" method="post">
                         <!-- ＩＤ入力 -->
                         <div class="mb-3">
                             <label for="id-input" class="form-label">ＩＤ</label>
@@ -103,11 +103,7 @@
         $(function() {
             $('#password-display').on('change', function() {
                 const passwordInput = $('#password-input');
-                if ($(this).prop('checked')) {
-                    passwordInput.attr('type', 'text');
-                } else {
-                    passwordInput.attr('type', 'password');
-                }
+                passwordInput.attr('type', $(this).prop('checked') ? 'text' : 'password');
             });
         });
     </script>
