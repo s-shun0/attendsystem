@@ -1,0 +1,94 @@
+/* ハンバーガーメニュー本体 */
+
+/* コンテナを固定 */
+.container {
+  position: fixed;       /* ← ここを追加！ */
+  top: 10px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  z-index: 10;
+}
+
+/* ログアウトボタン */
+.logout a {
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+/* ハンバーガーメニュー */
+.hamburger {
+  width: 30px;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+/* ハンバーガーの3本線 */
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #333;
+  margin: 5px 0;
+  transition: all 0.5s ease;
+}
+
+/* メニュー展開時（バツ印アニメーション） */
+.hamburger.active {
+  transform: rotate(360deg);
+}
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* メニュー全体のスタイル（初期は画面右外に非表示） */
+.menu {
+  position: fixed;
+  top: 50px;           /* ヘッダーの下に表示 */
+  right: -100%;        /* 初期位置：画面外（右） */
+  width: 30%;         /* 必要に応じて調整可 */        /*ハンバーガーメニュー開いた時の横幅の調整20にすればいい*/
+  height: 100vh;       /* 全画面の高さ */
+  background-color: lightskyblue; /*メニューウィンドウの色の設定*/
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 5;          /* ハンバーガーより背面に */
+
+  transition: right 0.3s ease; /* スライドイン効果 */
+
+  display: flex;
+  flex-direction: row;         /* 横並びに */
+  align-items: center;         /* 縦中央揃え */
+  justify-content: space-between; /* 両端配置 */
+}
+
+/* メニュー内のリンクリスト（右側） */
+.menu ul {
+  width: 100%;     /*ここを１００に*/
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu ul li {
+  margin-bottom: 20px;
+}
+
+.menu ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 30px;
+}
+
+/* メニューが開かれた状態（スライドイン） */
+.menu.open {
+  right: 0; /* 画面内に移動して表示 */
+}

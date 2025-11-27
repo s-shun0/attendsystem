@@ -1,0 +1,66 @@
+package Main;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import bean.User;
+import dao.UserDao;
+import tool.Action;
+
+public class LoginExecuteAction extends Action {
+    @Override
+    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+        // エラーメッセージを格納するリスト
+        List<String> errors = new ArrayList<String>();
+
+        // セッションを取得
+        HttpSession session = req.getSession();
+
+        // フォームからパラメータを取得
+        String id = req.getParameter("id");
+        String password = req.getParameter("password");
+
+        // 入力値の検証
+        if (id == null || id.trim().isEmpty()) {
+            errors.add("IDを入力してください");
+        }
+        if (password == null || password.trim().isEmpty()) {
+            errors.add("パスワードを入力してください");
+        }
+
+        // エラーがある場合はログイン画面に戻る
+        if (!errors.isEmpty()) {
+            req.setAttribute("errors", errors);
+            req.setAttribute("id", id);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");
+            dispatcher.forward(req, res);
+            return;
+        }
+
+        // DAOを使用してユーザー認証
+        UserDao userDao = new UserDao();
+        User user = userDao.login(id, password);
+
+        if (user != null) {
+            // ログイン成功
+            // セッションにユーザー情報を保存
+            session.setAttribute("user", user);
+
+            // MenuActionにフォワード
+            RequestDispatcher dispatcher = req.getRequestDispatcher("Menu.action");
+            dispatcher.forward(req, res);
+        } else {
+            // ログイン失敗
+            errors.add("IDまたはパスワードが正しくありません");
+            req.setAttribute("errors", errors);
+            req.setAttribute("id", id);
+
+            RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");
+            dispatcher.forward(req, res);
+        }
+    }
+}
