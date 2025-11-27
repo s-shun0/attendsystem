@@ -8,14 +8,13 @@
     <display-name>Sample App</display-name>
 
     <!-- サーブレット定義 -->
-    <servlet>
-        <servlet-name>ExampleServlet</servlet-name>
-        <servlet-class>com.example.ExampleServlet</servlet-class>
-    </servlet>
+	<servlet>
+    	<servlet-name>frontcontroller</servlet-name>
+    	<servlet-class>tool.FrontController</servlet-class>
+	</servlet>
 
-    <servlet-mapping>
-        <servlet-name>ExampleServlet</servlet-name>
-        <url-pattern>/example</url-pattern>
-    </servlet-mapping>
-
+	<servlet-mapping>
+    	<servlet-name>frontcontroller</servlet-name>
+    	<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
 </web-app>
