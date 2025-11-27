@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,8 +6,8 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import dao.UserDao;
 import tool.Action; // 共通Action基底クラス

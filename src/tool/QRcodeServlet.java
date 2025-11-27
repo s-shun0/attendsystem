@@ -1,6 +1,6 @@
 package tool;
 
-import javax.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServlet;
 
 public class QRcodeServlet extends HttpServlet {
 //    // メモリ上に一時的に保存（実際はDBでもOK）
