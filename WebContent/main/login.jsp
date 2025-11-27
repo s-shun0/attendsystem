@@ -37,7 +37,7 @@
                     </c:if>
 
                     <!-- ログインフォーム -->
-                   	<form action="${pageContext.request.contextPath}/Main/LoginExecute.action" method="post">
+                   	<form action="${pageContext.request.contextPath}/main/LoginExecute.action" method="post">
                         <!-- ＩＤ入力 -->
                         <div class="mb-3">
                             <label for="id-input" class="form-label">ＩＤ</label>
