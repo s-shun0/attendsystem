@@ -153,6 +153,33 @@ header {
 	font-size:50px;
 }
 
+/* ==============
+	check_in_complete.jsp
+================*/
+.content.complete {
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+    height: calc(100vh - 100px); /* ヘッダー50 + フッター50 → 合計100px */
+    text-align: center;
+}
+
+
+
+body.complete #header .menu,
+body.complete #header .logout,
+body.complete #header a[href*="logout"],
+body.complete #header a[href*="Logout"],
+body.complete #header a[href*="signout"] {
+    display: none !important;
+}
+
+
+.message {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
 
 /* =====================================
    フッター
