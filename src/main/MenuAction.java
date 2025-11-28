@@ -24,7 +24,7 @@ public class MenuAction extends Action {
         }
 
         // ログイン済みの場合はメニュー画面へ
-        RequestDispatcher dispatcher = request.getRequestDispatcher("main/menu.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("menu.jsp");
         dispatcher.forward(request, response);
     }
 }
