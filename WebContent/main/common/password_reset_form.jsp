@@ -1,14 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-<head><title>パスワードリセット</title></head>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="/attendsystem/css/style.css">
+<link rel="stylesheet" href="/attendsystem/css/menu.css">
+
+<title>出席管理システム</title>
+
+</head>
 <body>
-<h2>新しいパスワードを入力してください</h2>
-<form action="/attendsystem/Main/PasswordResetExecute.action" method="post">
-    <input type="hidden" name="token" value="${param.token}" />
-    <label>新しいパスワード</label>
-    <input type="password" name="password" required />
-    <button type="submit">リセット</button>
-</form>
+
+	<div class="wrapper">
+		<!-- ヘッダー（JSで読み込み） -->
+		<div id="header"></div>
+		<main class="content">
+			<h2 class="text-error fs-4 mt-5">管理者権限が取得不可能なため実現不可との判断で画面遷移のみしております</h2>
+		</main>
+		<!-- フッター（JSで読み込み） -->
+	    <div id="footer"></div>
+    </div>
+
+    <!-- JavaScriptファイルの読み込み -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery本体 -->
+	<script src="/attendsystem/js/header.js"></script>
+	<script src="/attendsystem/js/footer.js"></script>
 </body>
 </html>
