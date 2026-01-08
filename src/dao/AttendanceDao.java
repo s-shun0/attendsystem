@@ -20,7 +20,7 @@ public class AttendanceDao extends Dao{
 	private String baseSql="select * from attendance where id=? ";
 
 	//qrコードで出席
-	public boolean attend(int id,String password) throws Exception{
+	public boolean attend(String id,String password) throws Exception{
 
 
 		Date date = new Date();
@@ -53,11 +53,11 @@ public class AttendanceDao extends Dao{
 
 			statement = connection.prepareStatement(baseSql);
 
-			statement.setInt(1,id);
+			statement.setString(1,id);
 			ResultSet rSet = statement.executeQuery();
 			if (rSet != null){
 				Statement = connection.prepareStatement("insert into attendance (student_id,date,status,updatetime) values(?,?,?,?)");
-				Statement.setInt(1, id);
+				Statement.setString(1, id);
 				Statement.setString(2,FM1);
 				Statement.setString(3, status);
 				Statement.setString(4, FM2);
