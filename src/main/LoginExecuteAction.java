@@ -51,7 +51,7 @@ public class LoginExecuteAction extends Action {
             session.setAttribute("user", user);
 
             // MenuActionにフォワード
-            RequestDispatcher dispatcher = req.getRequestDispatcher("Menu.action");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("../Teacher/ClassSelect.action");
             dispatcher.forward(req, res);
         } else {
             // ログイン失敗
