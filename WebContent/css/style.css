@@ -179,7 +179,28 @@ body.complete #header a[href*="signout"] {
     font-size: 3rem;
     font-weight: bold;
 }
+/*クラス変更*/
+.class-change {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
 
+
+.student-card {
+    list-style: none;
+    display: flex;          /* 4項目を横並び */
+    gap: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.student-card > div {
+    text-align: center;
+    min-width: 100px;
+}
 
 /* =====================================
    フッター

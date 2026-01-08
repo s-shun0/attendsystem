@@ -115,7 +115,7 @@ public class UserDao extends Dao{
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		try{
-			User user = new User();
+			
 
 			statement = connection.prepareStatement("select * from users where class=?");
 			statement.setInt(1,classnum);
@@ -123,6 +123,7 @@ public class UserDao extends Dao{
 			ResultSet rSet = statement.executeQuery();
 
 			while (rSet.next()){
+				User user = new User();
 				//学生インスタンスに検索結果をセット
 				user.setId(rSet.getString("id"));
 				user.setName(rSet.getString("name"));
