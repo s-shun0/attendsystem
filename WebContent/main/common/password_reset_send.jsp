@@ -15,7 +15,7 @@
 			<c:if test="${not empty message}">
 				<p style="color: green; font-weight: bold;">${message}</p>
 			</c:if>
-			<form action="/attendsystem/Main/PasswordResetSendExecute.action" method="post">
+			<form action="/attendsystem/main/PasswordResetSendExecute.action" method="post">
 				<label>メールアドレス</label>
 				<input class="form-control px-5 fs-5" autocomplete="off" id="password-input" maxlength="30" name="email" placeholder="メールアドレスを入力" style="ime-mode: disabled" type="email" required />
 				<input class="btn btn-lg btn-primary mt-3" type="submit" value="メール送信"/>
