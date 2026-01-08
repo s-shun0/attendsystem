@@ -1,34 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>欠席アーカイブ</title>
 
-<link rel="stylesheet" href="/attendsystem/css/style.css">
-<link rel="stylesheet" href="/attendsystem/css/menu.css">
-
-<title>出席管理システム</title>
-
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/menu.css">
 </head>
+
 <body>
+<div class="wrapper">
 
-	<div class="wrapper">
-		<!-- ヘッダー（JSで読み込み） -->
-		<div id="header"></div>
-		<main class="content">
-			<ul class="class-list">
-				
-			</ul>
-		</main>
-		<!-- フッター（JSで読み込み） -->
-	    <div id="footer"></div>
-    </div>
+    <!-- ヘッダー -->
+    <div id="header"></div>
 
-    <!-- JavaScriptファイルの読み込み -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery本体 -->
-	<script src="/attendsystem/js/header.js"></script>
-	<script src="/attendsystem/js/footer.js"></script>
+    <h2 class="fs-4 mt-5">学生情報画面</h2>
+
+    <main class="archive-content">
+
+        <c:choose>
+            <c:when test="${not empty rows}">
+                <c:forEach var="s" items="${rows}">
+                    <div class="archive-row">
+                        ${s.id}　
+                        ${s.name}　
+                        欠席累計：${s.weighted}
+                    </div>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <div class="muted">
+                    対象の学生が存在しません
+                </div>
+            </c:otherwise>
+        </c:choose>
+
+    </main>
+
+    <!-- フッター -->
+    <div id="footer"></div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../../js/header.js"></script>
+<script src="../../js/footer.js"></script>
 </body>
 </html>
