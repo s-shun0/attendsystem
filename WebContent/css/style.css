@@ -135,6 +135,11 @@ header {
 	right: 120px;  /* 右から120px */
 	bottom: 100px; /* 下から100px（下固定したい場合） */
 }
+
+.btn-center {
+    text-align: center;
+}
+
 /*ulタグにだけcss反映させる場合*/
 .other-edits-list {
 
