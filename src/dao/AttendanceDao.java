@@ -120,7 +120,7 @@ public class AttendanceDao extends Dao{
 				Attendance attend = new Attendance();
 				ResultSet rSet = statement.executeQuery();
 				if (rSet.next()){
-					attend.setId(rSet.getInt("student_id"));
+					attend.setId(rSet.getString("student_id"));
 					attend.setDate(rSet.getString("date"));
 					attend.setStatus(rSet.getString("status"));
 					attend.setUpdate(rSet.getString("updatetime"));
@@ -151,7 +151,72 @@ public class AttendanceDao extends Dao{
 		return list;
 	}
 
+	public ArrayList<Attendance> tracker(String class_,String date)throws Exception {
+		ArrayList<Attendance> list = new ArrayList<Attendance>();
+		Attendance att = new Attendance();
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		String users="";
+		String day="";
+		try{
+			if (class_ == null) {
+				users = "users.class=? and";
+			}if (date == null) {
+				day = "attendance.date=?";
+			}
+			
+			//プリペアードスタートメントにSQL文をセット
+			if (users==day) {
+				statement = connection.prepareStatement("select * from attendance INNER JOIN users ");
+			}else {
+				statement = connection.prepareStatement("select * from attendance "
+											+ "INNER JOIN users on attendance.student_id = users.id"
+											+ " where "+ users + day);
+				//学生番号をバインド
+				statement.setString(1,class_);
+				statement.setString(2, date);
+			}
+			//実行
+			ResultSet rSet = statement.executeQuery();
 
+
+			if (rSet.next()){
+				//学生インスタンスに検索結果をセット
+				att.setId(rSet.getString("student_id"));
+				att.setName(rSet.getString("name"));
+				att.setDate(rSet.getString("date"));
+				att.setStatus(rSet.getString("status"));
+				att.setUpdate(rSet.getString("updatetime"));
+				
+				list.add(att);
+			} else{
+				att = null;
+			}
+		} catch (Exception e){
+			throw e;
+		}finally {
+			if (statement != null){
+				try {
+					statement.close();
+				} catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+			if (connection != null){
+				try {
+					connection.close();
+				} catch(SQLException e){
+					throw e;
+				}
+			}
+		}
+		
+		
+		return list;
+	}
+	
+	
+	
 
 	//主席編集の追加
 

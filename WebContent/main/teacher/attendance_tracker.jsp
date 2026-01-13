@@ -10,8 +10,8 @@
 
 <title>出席トラッカー</title>
 
-<link rel="stylesheet" href="../../css/style.css">
-<link rel="stylesheet" href="../../css/menu.css">
+<link rel="stylesheet" href="/attendsystem/css/style.css">
+<link rel="stylesheet" href="/attendsystem/css/menu.css">
 
 </head>
 <body>
@@ -31,7 +31,7 @@
     <main class="password-reset-content">
         <!-- ↑ 既存CSSを流用するのがポイント -->
 
-        <form action="Teacher/Absence_archive.action" method="post">
+        <form id="absenceForm" action="Attendance_Tracker.action" method="post">
 
             <div class="pass_reset">
                 <label>日付</label>
@@ -40,19 +40,61 @@
 
             <div class="pass_reset_again">
                 <label>クラス</label>
-                <select name="classId" class="form-control">
+                <select name="classnum" class="form-control">
                     <option value="">選択</option>
                     <c:forEach var="cls" items="${classList}">
-                        <option value="${cls.id}">${cls.name}</option>
+                        <option value="${cls}">${cls}</option>
                     </c:forEach>
                 </select>
             </div>
 
-            <div style="font-size:22px; margin-top:20px;">
-                最新更新：${empty updateTime ? "--:--" : updateTime}
-            </div>
-
         </form>
+
+        <!-- 出席情報テーブル -->
+        <div style="margin-top:30px; margin-bottom:80px;">
+            <h3>出席情報一覧</h3>
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>学生ID</th>
+                        <th>学生名</th>
+                        <th>日付</th>
+                        <th>出席状況</th>
+                        <th>最新更新</th>
+                    </tr>
+                </thead>
+                <tbody>
+			        <c:forEach var="attendance" items="${attendanceList}">
+			            <tr>
+			                <td>${attendance.id}</td>
+			                <td>${attendance.name}</td>
+			                <td>${attendance.date}</td>
+			                <td>
+			                    <c:choose>
+			                        <c:when test="${attendance.status == 'present'}">
+			                            <span class="badge bg-success">出席</span>
+			                        </c:when>
+			                        <c:when test="${attendance.status == 'tardiness'}">
+			                            <span class="badge bg-warning">遅刻</span>
+			                        </c:when>
+			                        <c:when test="${attendance.status == 'leaving early'}">
+			                            <span class="badge bg-danger">早退</span>
+			                        </c:when>
+			                        <c:otherwise>
+			                            <span class="badge bg-secondary">${attendance.status}</span>
+			                        </c:otherwise>
+			                    </c:choose>
+			                </td>
+			                <td>${empty attendance.update ? "--:--" : attendance.update}</td>
+			            </tr>
+			        </c:forEach>
+			        <c:if test="${empty attendanceList}">
+			            <tr>
+			                <td colspan="4" class="text-center text-muted">出席情報がありません</td>
+			            </tr>
+			        </c:if>
+			    </tbody>
+        </div>
 
     </main>
 
@@ -62,13 +104,11 @@
            form="absenceForm"/>
 
     <!-- フッター -->
-    <div id="footer"></div>
+<!--    <div id="footer"></div>-->
 
 </div>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="../../js/header.js"></script>
-<script src="../../js/footer.js"></script>
-
+<script src="/attendsystem/js/header.js"></script>
+<script src="/attendsystem/js/footer.js"></script>
 </body>
 </html>

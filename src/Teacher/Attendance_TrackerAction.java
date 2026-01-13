@@ -1,19 +1,12 @@
 package Teacher;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import dao.Dao;
+import bean.Attendance;
+import dao.AttendanceDao;
 import tool.Action;
 
 public class Attendance_TrackerAction extends Action {
@@ -21,87 +14,31 @@ public class Attendance_TrackerAction extends Action {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp)
             throws Exception {
+    	String classnum = req.getParameter("classnum");
+    	String date = req.getParameter("date");
+//        
+//        List<String> errors = new ArrayList<String>();
+//
+//        HttpSession session = req.getSession();
 
-        resp.setContentType("text/html; charset=UTF-8");
-
-        String sort = Optional.ofNullable(req.getParameter("sort")).orElse("name");
-
-        String classStr = req.getParameter("classnum");
-        Integer classnum = null;
-        if (classStr != null && !classStr.isEmpty()) {
-            try {
-                classnum = Integer.parseInt(classStr);
-            } catch (NumberFormatException ignored) {}
+        if (date != null ) {
+        	ArrayList<Attendance> attendanceList = new ArrayList<Attendance>();
+        	AttendanceDao aDao = new AttendanceDao();
+        	attendanceList = aDao.tracker(classnum,date);
+        	 
+        	req.setAttribute("attendanceList", attendanceList);
+        	
         }
-
-        List<Map<String, Object>> rows = new ArrayList<>();
-
-        try (Connection con = new Dao().getConnection()) {
-
-            String sql = "SELECT id, name FROM users "
-                       + (classnum != null ? "WHERE class=? " : "")
-                       + "ORDER BY id";
-
-            try (PreparedStatement ps = con.prepareStatement(sql)) {
-                if (classnum != null) ps.setInt(1, classnum);
-
-                try (ResultSet rs = ps.executeQuery()) {
-                    while (rs.next()) {
-
-                        String sid = rs.getString("id");
-                        String name = rs.getString("name");
-
-                        int absences = 0, tardiness = 0, leaving = 0, other = 0;
-
-                        String taSql =
-                            "SELECT absences, tardiness, laving_early, other " +
-                            "FROM total_absences WHERE student_id=?";
-
-                        try (PreparedStatement ps2 = con.prepareStatement(taSql)) {
-                            ps2.setString(1, sid);
-                            try (ResultSet rs2 = ps2.executeQuery()) {
-                                if (rs2.next()) {
-                                    absences = rs2.getInt("absences");
-                                    tardiness = rs2.getInt("tardiness");
-                                    leaving = rs2.getInt("laving_early");
-                                    other = rs2.getInt("other");
-                                }
-                            }
-                        }
-
-                        double weighted =
-                                absences * 1.0 +
-                                tardiness * 0.5 +
-                                leaving * 0.5 +
-                                other * 0.2;
-
-                        Map<String, Object> row = new HashMap<>();
-                        row.put("id", sid);
-                        row.put("name", name);
-                        row.put("weighted", weighted);
-
-                        rows.add(row);
-                    }
-                }
-            }
-
-            if ("absence".equals(sort)) {
-                rows.sort(
-                    Comparator.<Map<String, Object>, Double>
-                        comparing(r -> (Double) r.get("weighted"))
-                        .reversed()
-                );
-            } else {
-                rows.sort(Comparator.comparing(r -> (String) r.get("name")));
-            }
+        ArrayList<String> classlist = new ArrayList<String>();
+        for (int i=4;i<=6;i++) {
+        	for (int j=1;j<=4;j++){
+        		date = ""+i+j;
+        		classlist.add(date);
+        	}
         }
-
-        req.setAttribute("rows", rows);
-        req.setAttribute("classnum", classnum);
-        req.setAttribute("selectedSort", sort);
-
+        req.setAttribute("classList", classlist);
         req.getRequestDispatcher(
-            "/main/teacher/student_information_list.jsp"
+            "/main/teacher/attendance_tracker.jsp"
         ).forward(req, resp);
     }
 }

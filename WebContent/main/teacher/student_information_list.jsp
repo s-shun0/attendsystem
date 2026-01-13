@@ -11,9 +11,10 @@
 
 <title>出席管理システム</title>
 
+
 </head>
 <body>
-
+	<p>hello</p>
 	<div class="wrapper">
 		<!-- ヘッダー（JSで読み込み） -->
 		<div id="header"></div>
