@@ -20,6 +20,11 @@
 		<main class="content">
 			<h2 class="text-error fs-4 mt-5">⚠エラーが発生しました</h2>
 		</main>
+	    <div class="btn-center mt-4">
+	        <button type="button" class="btn-back" onclick="history.back();">
+	            前の画面に戻る
+	        </button>
+	    </div>
 		<!-- フッター（JSで読み込み） -->
 	    <div id="footer"></div>
     </div>

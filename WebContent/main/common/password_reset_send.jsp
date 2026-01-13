@@ -13,7 +13,9 @@
 		<h2 class="text-password_reset fs-4 mt-5">パスワードリセットURL送信</h2>
 		<main class="content"> <%-- 送信結果メッセージ --%>
 			<c:if test="${not empty message}">
-				<p style="color: green; font-weight: bold;">${message}</p>
+				<p style="color: green; font-weight: bold;">
+    				<c:out value="${message}" />
+				</p>
 			</c:if>
 			<form action="/attendsystem/main/PasswordResetSendExecute.action" method="post">
 				<label>メールアドレス</label>
