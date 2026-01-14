@@ -12,7 +12,7 @@ body {
 }
 
 body {
-  overflow: hidden; /* 縦スクロール防止 */             /*不要なら決してOK！！！*/
+ /*不要なら決してOK！！！*/
   overflow-x: hidden; /* 横スクロール防止 */
 }
 

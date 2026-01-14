@@ -37,20 +37,24 @@ public class Absence_archiveAction extends Action {
 
         try (Connection con = new Dao().getConnection()) {
 
-            StringBuilder sql = new StringBuilder();
-            sql.append(
-                "SELECT u.id, u.name, " +
-                "COALESCE(t.absences, 0) AS absences, " +
-                "COALESCE(t.tardiness, 0) AS tardiness, " +
-                "COALESCE(t.`leaving_early`, 0) AS leaving_early, " +
-                "COALESCE(t.other, 0) AS other " +
-                "FROM users u " +
-                "LEFT JOIN total_absences t ON u.id = t.student_id "
-            );
+        	StringBuilder sql = new StringBuilder();
+        	sql.append(
+        	    "SELECT u.id, u.name, " +
+        	    "COALESCE(t.absences, 0) AS absences, " +
+        	    "COALESCE(t.tardiness, 0) AS tardiness, " +
+        	    "COALESCE(t.leaving_early, 0) AS leaving_early, " +
+        	    "COALESCE(t.other, 0) AS other " +
+        	    "FROM users u " +
+        	    "LEFT JOIN total_absences t ON u.id = t.student_id " +
+        	    "WHERE u.job <> '教員' "
+        	);
 
-            if (classnum != null) {
-                sql.append("WHERE u.class = ?");
-            }
+        	if (classnum != null) {
+        	    sql.append("AND u.class = ?");
+        	}
+
+
+
 
             try (PreparedStatement ps = con.prepareStatement(sql.toString())) {
 
@@ -90,18 +94,17 @@ public class Absence_archiveAction extends Action {
         // ソート
         switch (sort) {
             case "absence":
-                rows.sort(Comparator
-                        .<Map<String, Object>, Double>comparing(
-                                r -> (Double) r.get("weighted"))
-                        .reversed());
+                rows.sort(
+                    Comparator.<Map<String, Object>, Double>
+                        comparing(r -> (Double) r.get("weighted"))
+                        .reversed()
+                );
                 break;
             case "id":
-                rows.sort(Comparator.comparing(
-                        r -> (String) r.get("id")));
+                rows.sort(Comparator.comparing(r -> (String) r.get("id")));
                 break;
             default:
-                rows.sort(Comparator.comparing(
-                        r -> (String) r.get("name")));
+                rows.sort(Comparator.comparing(r -> (String) r.get("name")));
         }
 
         req.setAttribute("rows", rows);
