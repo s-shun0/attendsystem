@@ -17,7 +17,7 @@ import bean.Attendance;
 
 public class AttendanceDao extends Dao{
 
-	private String baseSql="select * from attendance where student_id=? ";
+	private String baseSql = "select * from attendance where student_id=? ";
 
 	//qrコードで出席
 	public boolean attend(String id,String password) throws Exception{
@@ -28,6 +28,7 @@ public class AttendanceDao extends Dao{
 		SimpleDateFormat  fm1 = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat  fm2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		// HH で24時間制に変更
+
 		String FM1 =	fm1.format(date);
 		String FM2 =	fm2.format(date);
 
@@ -49,13 +50,15 @@ public class AttendanceDao extends Dao{
 			status = "present";
 		}
 		int count=0;
+		String job="";
 		try{
 
 			statement = connection.prepareStatement(baseSql);
 
 			statement.setString(1,id);
 			ResultSet rSet = statement.executeQuery();
-			if (rSet.next()){
+			job = rSet.getString("job"); 
+			if(rSet.next()){
 				Statement = connection.prepareStatement("insert into attendance (student_id,date,status,updatetime) values(?,?,?,?)");
 				Statement.setString(1,id);
 				Statement.setString(2,FM1);
@@ -83,7 +86,7 @@ public class AttendanceDao extends Dao{
 				}
 			}
 		}
-		if (count > 0){
+		if (count > 0 && job != "教員"){
 			return true;
 		} else{
 			return false;

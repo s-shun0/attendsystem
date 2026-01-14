@@ -14,6 +14,7 @@ public class Attendance_TrackerAction extends Action {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp)
             throws Exception {
+    	
     	String classnum = req.getParameter("classnum");
     	String date = req.getParameter("date");
 //        
