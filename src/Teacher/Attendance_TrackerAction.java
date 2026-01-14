@@ -14,7 +14,12 @@ public class Attendance_TrackerAction extends Action {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp)
             throws Exception {
+    	
     	String classnum = req.getParameter("classnum");
+    	if (classnum == null || classnum.trim().isEmpty()) {
+    	    resp.sendRedirect("/attendsystem/Teacher/ClassSelect.action");
+    	    return;
+    	}
     	String date = req.getParameter("date");
 //        
 //        List<String> errors = new ArrayList<String>();
