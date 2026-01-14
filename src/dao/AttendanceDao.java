@@ -45,19 +45,18 @@ public class AttendanceDao extends Dao{
 		if (C > 1240 ){
 			status ="absent";
 		}else if(C > 915){
-			status ="late_early";
+			status ="late";
 		}else{
 			status = "present";
 		}
 		int count=0;
 		String job="";
+		
 		try{
-
 			statement = connection.prepareStatement(baseSql);
 
 			statement.setString(1,id);
 			ResultSet rSet = statement.executeQuery();
-			job = rSet.getString("job"); 
 			if(rSet.next()){
 				Statement = connection.prepareStatement("insert into attendance (student_id,date,status,updatetime) values(?,?,?,?)");
 				Statement.setString(1,id);
