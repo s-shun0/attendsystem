@@ -27,9 +27,18 @@
 				  <div class="change-action">
 				    <select name="newClass">
 				      <option value="">変更先クラス</option>
+				      <option value="41">41教室</option>
 				      <option value="42">42教室</option>
+				      <option value="43">43教室</option>
+				      <option value="44">44教室</option>
+				      <option value="51">51教室</option>
 				      <option value="52">52教室</option>
+				      <option value="53">53教室</option>
+				      <option value="54">54教室</option>
+				      <option value="61">61教室</option>
 				      <option value="62">62教室</option>
+				      <option value="63">63教室</option>
+				      <option value="63">63教室</option>
 				    </select>
 				
 				    <button type="submit" class="change-btn">変更</button>
@@ -51,9 +60,7 @@
 				      <li class="student-row">
 				
 				        <span>
-				          <input type="checkbox"
-				                 name="studentIds"
-				                 value="${student.id}">
+				          <input type="checkbox" name="studentIds" value="${student.id}">
 				        </span>
 				
 				        <span>${student.id}</span>
