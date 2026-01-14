@@ -27,10 +27,18 @@
     <ul>
       <li>メニュー</li>
       <hr>
+      <li>メニュー</li>
+      <hr>
       <li><a href="/attendsystem/Teacher/ClassSelect.action">クラスセレクト</a></li>
+<<<<<<< HEAD
       <li><a href="/attendsystem/main/teacher/absence_archive.jsp">欠席アーカイブ</a></li>
       <li><a href="/attendsystem/main/qrcode_display.jsp">QRコードジェネレーター</a></li>
       <li><a href="/attendsystem/main/Teacher/Attendance_Tracker.action">出席トラッカー</a></li>
+=======
+      <li><a href="/attendsystem/Teacher/Absence_archive.action">欠席アーカイブ</a></li>
+      <li><a href="/attendsystem/main/teacher/class_select.jsp">QRコードジェネレーター</a></li>
+      <li><a href="/attendsystem/main/teacher/qr_attend.jsp">出席トラッカー</a></li>
+>>>>>>> branch 'master' of https://github.com/s-shun0/attendsystem.git
       <li><a href="/attendsystem/Teacher/OtherEdits.action">その他の編集</a></li>
     </ul>
   </nav>

@@ -207,6 +207,111 @@ body.complete #header a[href*="signout"] {
     min-width: 100px;
 }
 
+/* ===============================
+   欠席アーカイブ（完全版）
+================================ */
+
+/* メイン表示領域 */
+.archive-content {
+    margin-top: 80px;          /* 固定ヘッダー分の余白 */
+    width: 100%;
+}
+
+/* 見出し */
+.archive-content h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+/* 並び替えセレクトボックス */
+.archive-sort {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.archive-sort select {
+    font-size: 1rem;
+    padding: 6px 12px;
+}
+
+/* テーブル中央配置 */
+.table-center {
+    display: flex;
+    justify-content: center;
+}
+
+/* テーブル本体 */
+.archive-table {
+    width: 80%;
+    table-layout: fixed;       /* ★ 幅固定 */
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+/* ヘッダー */
+.archive-table thead {
+    background-color: #f4f4f4;
+}
+
+.archive-table th {
+    font-weight: bold;
+}
+
+/* セル共通 */
+.archive-table th,
+.archive-table td {
+    padding: 10px 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.95rem;
+    width: calc(100% / 7);     /* ★ 7列完全均等 */
+}
+
+/* 行ホバー */
+.archive-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* 数値を見やすく */
+.archive-table td {
+    white-space: nowrap;
+}
+
+/* 学籍番号・氏名を少し強調 */
+.archive-table td:nth-child(1),
+.archive-table td:nth-child(2) {
+    font-weight: 600;
+}
+
+/* 「対象の学生が存在しません」 */
+.archive-empty {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 50px;
+    color: #666;
+}
+
+/* ===============================
+   レスポンシブ対応（小画面）
+================================ */
+@media screen and (max-width: 900px) {
+
+    .archive-table {
+        width: 95%;
+        font-size: 0.85rem;
+    }
+
+    .archive-table th,
+    .archive-table td {
+        padding: 6px 4px;
+    }
+}
+
+
+
 /* =====================================
    フッター
 ===================================== */
