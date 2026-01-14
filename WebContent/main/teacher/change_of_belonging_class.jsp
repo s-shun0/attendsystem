@@ -19,37 +19,57 @@
 		<!-- ヘッダー（JSで読み込み） -->
 		<div id="header"></div>
 		<h2 style="text-align: center;">クラス変更</h2>
-		<main class="content">
-			<ul class="class-change">
+			<main class="content class-change-page">
+			
+				<form action="${pageContext.request.contextPath}/tool/ClassChangeServlet"method="post">
+				
+				  <!-- 操作エリア -->
+				  <div class="change-action">
+				    <select name="newClass">
+				      <option value="">変更先クラス</option>
+				      <option value="42">42教室</option>
+				      <option value="52">52教室</option>
+				      <option value="62">62教室</option>
+				    </select>
+				
+				    <button type="submit" class="change-btn">変更</button>
+				  </div>
+				
+				  <!-- 一覧 -->
+				  <ul class="class-change">
+				
+				    <!-- ヘッダー -->
+				    <li class="list-header">
+				      <span></span>
+				      <span>学籍番号</span>
+				      <span>氏名</span>
+				      <span>コース</span>
+				      <span>クラス</span>
+				    </li>
+				
+				    <c:forEach var="student" items="${students}">
+				      <li class="student-row">
+				
+				        <span>
+				          <input type="checkbox"
+				                 name="studentIds"
+				                 value="${student.id}">
+				        </span>
+				
+				        <span>${student.id}</span>
+				        <span>${student.name}</span>
+				        <span>${student.job}</span>
+				        <span>${student.classnum}</span>
+				
+				      </li>
+				    </c:forEach>
+				
+				  </ul>
+				
+				</form>
 
-			  <c:forEach var="student" items="${students}">
-			    <li class="student-card">
-			
-			      <div class="student-id-number">
-			        <span class="label">学籍番号</span>
-			        <p>${student.id}</p>
-			      </div>
-			
-			      <div class="student-name">
-			        <span class="label">氏名</span>
-			        <p>${student.name}</p>
-			      </div>
-			
-			      <div class="student-course">
-			        <span class="label">コース</span>
-			        <p>${student.job}</p>
-			      </div>
-			
-			      <div class="student-class">
-			        <span class="label">クラス</span>
-			        <p>${student.classnum}</p>
-			      </div>
-			
-			    </li>
-			  </c:forEach>
-		
-			</ul>
-		</main>
+			</main>
+
 		<!-- フッター（JSで読み込み） -->
 	    <div id="footer"></div>
     </div>
