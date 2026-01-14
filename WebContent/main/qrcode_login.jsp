@@ -105,7 +105,7 @@
             QRコード認証完了
         </div>
 
-        <form method="POST" action="CreateQRcodeExecuteAction">
+        <form method="POST" action="CreateQRcodeExecute.action">
             <div class="form-group">
                 <label for="username">ユーザー名：</label>
                 <input type="text" id="username" name="username" required>

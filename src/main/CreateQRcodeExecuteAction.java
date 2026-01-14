@@ -1,56 +1,47 @@
-package main;
+package main;  // または適切なパッケージ
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import dao.AttendanceDao;
+import tool.Action;
 
-@WebServlet("/CreateQRcodeExecuteAction")
-public class CreateQRcodeExecuteAction extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
+public class CreateQRcodeExecuteAction extends Action {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res)
-            throws ServletException, IOException {
-    	
-    	List<String> errors = new ArrayList<String>();
+    public void execute(HttpServletRequest req, HttpServletResponse res) 
+            throws Exception {
         
-        // ログインフォームから受け取った情報
+        List<String> errors = new ArrayList<String>();
+        
         String id = req.getParameter("username");
         String password = req.getParameter("password");
         
-        
-        
         try {
-            // AttendDaoを使用してログイン処理
-            AttendanceDao aDao = new  AttendanceDao(); 
+            AttendanceDao aDao = new AttendanceDao(); 
             boolean jug = aDao.attend(id, password);
             
-            if (jug == true) {
-       
-                // フォワード
-                RequestDispatcher dispatcher = req.getRequestDispatcher("qrcode_loginexecute.jsp");
-                dispatcher.forward(req, res);
-            	
-            }else {
-            	errors.add("IDまたはパスワードが正しくありません");
+            if (jug) {
+                // ログイン成功
+                HttpSession session = req.getSession();
+                session.setAttribute("userId", id);
+                
+                req.getRequestDispatcher("qrcode_loginexecute.jsp").forward(req, res);
+                
+            } else {
+                // ログイン失敗
+                errors.add("IDまたはパスワードが正しくありません");
                 req.setAttribute("errors", errors);
                 req.setAttribute("id", id);
                 
-                RequestDispatcher dispatcher = req.getRequestDispatcher("CreateQRcode.action");
-                dispatcher.forward(req, res);
+                req.getRequestDispatcher("qrcode_display.jsp").forward(req, res);
             }
             
-        }catch(Exception e) {
-        	
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 }
