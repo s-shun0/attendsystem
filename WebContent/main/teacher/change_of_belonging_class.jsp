@@ -18,7 +18,7 @@
 	<div class="wrapper">
 		<!-- ヘッダー（JSで読み込み） -->
 		<div id="header"></div>
-		<h2 style="text-align: center;">クラス変更</h2>
+		<h2 style="text-align: center;">${classnum}クラス変更</h2>
 			<main class="content class-change-page">
 			
 				<form action="${pageContext.request.contextPath}/tool/ClassChangeServlet"method="post">

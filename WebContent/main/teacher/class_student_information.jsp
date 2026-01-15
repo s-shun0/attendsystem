@@ -18,7 +18,7 @@
 	<div class="wrapper">
 		<!-- ヘッダー（JSで読み込み） -->
 		<div id="header"></div>
-		<h2 style="text-align: center;">クラスの生徒情報一覧</h2>
+		<h2 style="text-align: center;">${classnum}クラスの生徒情報一覧</h2>
 		<!-- 一括削除ボタン -->
 		<form action="${pageContext.request.contextPath}/Teacher/StudentBulkDelete.action"
 		      method="post"
