@@ -92,3 +92,12 @@
 .menu.open {
   right: 0; /* 画面内に移動して表示 */
 }
+
+/* ===============================
+   class_select.jsp のみ
+   ハンバーガーメニュー非表示
+================================ */
+body.class-select-page .hamburger,
+body.class-select-page .menu {
+  display: none !important;
+}

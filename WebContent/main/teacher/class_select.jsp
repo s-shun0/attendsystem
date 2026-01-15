@@ -12,7 +12,7 @@
 <title>出席管理システム</title>
 
 </head>
-<body>
+<body class="class-select-page">
 
 	<div class="wrapper">
 		<!-- ヘッダー（JSで読み込み） -->
