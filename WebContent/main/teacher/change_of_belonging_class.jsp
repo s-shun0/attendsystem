@@ -46,33 +46,49 @@
 				
 				  <!-- 一覧 -->
 				  <ul class="class-change">
-				
-				    <!-- ヘッダー -->
-				    <li class="list-header">
-				      <span></span>
-				      <span>学籍番号</span>
-				      <span>氏名</span>
-				      <span>コース</span>
-				      <span>クラス</span>
-				    </li>
-				
-				    <c:forEach var="student" items="${students}">
-				      <li class="student-row">
-				
-				        <span>
-				          <input type="checkbox" name="studentIds" value="${student.id}">
-				        </span>
-				
-				        <span>${student.id}</span>
-				        <span>${student.name}</span>
-				        <span>${student.job}</span>
-				        <span>${student.classnum}</span>
-				
-				      </li>
-				    </c:forEach>
-				
-				  </ul>
-				
+
+					  <!-- ヘッダー -->
+					  <li class="list-header">
+					    <span></span>
+					    <span>学籍番号</span>
+					    <span>氏名</span>
+					    <span>コース</span>
+					    <span>クラス</span>
+					  </li>
+					
+					  <c:choose>
+					
+					    <c:when test="${empty students}">
+						  <li class="student-row no-student">
+						    <!-- チェックボックス列 -->
+						    <span></span>
+						
+						    <!-- 2〜5列をまとめて使用 -->
+						    <span class="no-student-text" style="grid-column: 2 / 6;">
+						      生徒情報が存在しません
+						    </span>
+						  </li>
+						</c:when>
+					    <c:otherwise>
+					      <c:forEach var="student" items="${students}">
+					        <li class="student-row">
+					
+					          <span>
+					            <input type="checkbox" name="studentIds" value="${student.id}">
+					          </span>
+					
+					          <span>${student.id}</span>
+					          <span>${student.name}</span>
+					          <span>${student.job}</span>
+					          <span>${student.classnum}</span>
+					
+					        </li>
+					      </c:forEach>
+					    </c:otherwise>
+					
+					  </c:choose>
+					
+					</ul>				
 				</form>
 
 			</main>

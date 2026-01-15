@@ -19,6 +19,16 @@
 		<!-- ヘッダー（JSで読み込み） -->
 		<div id="header"></div>
 		<h2 style="text-align: center;">クラスの生徒情報一覧</h2>
+		<!-- 一括削除ボタン -->
+		<form action="${pageContext.request.contextPath}/Teacher/StudentBulkDelete.action"
+		      method="post"
+		      onsubmit="return confirm('このクラスの生徒を全員削除します。本当によろしいですか？');"
+		      class="bulk-delete-form">
+		
+		    <button type="submit" class="bulk-delete-btn">
+		        このクラスの生徒を一括削除
+		    </button>
+		</form>
 		<!-- 検索エリア -->
 		<form action="${pageContext.request.contextPath}/Teacher/StudentSearch.action"
 		      method="get"
@@ -32,29 +42,39 @@
 		</form>		
 		<main class="content class-student-information">
 			<ul class="class-change">
+			
+			  <!-- ヘッダー -->
+			  <li class="class-student-list-header">
+			    <span></span>
+			    <span>学籍番号</span>
+			    <span>氏名</span>
+			    <span>コース</span>
+			  </li>
+			
+			  <c:choose>
+				  <c:when test="${empty students}">
+				    <li class="class-student-row no-student">
+				      <span class="no-student-text">生徒情報が存在しません</span>
+				    </li>
+				  </c:when>
 				
-			    <!-- ヘッダー -->
-			    <li class="class-student-list-header">
-			      <span></span>
-			      <span>学籍番号</span>
-			      <span>氏名</span>
-			      <span>コース</span>
-			    </li>
-				
-			    <c:forEach var="student" items="${students}">
-			      <li class="class-student-row">
-			        <span>${student.id}</span>
-			        <span>${student.name}</span>
-			        <span>${student.job}</span>
-			        <span>
-			            <form action="${pageContext.request.contextPath}/Teacher/StudentEdit.action" method="post" style="margin:0;">
-			                <input type="hidden" name="studentId" value="${student.id}">
-			                <button type="submit" class="edit-btn">編集</button>
-			            </form>
-			        </span>
-			      </li>
-			    </c:forEach>
-				
+				  <c:otherwise>
+				    <c:forEach var="student" items="${students}">
+				      <li class="class-student-row">
+				        <span>${student.id}</span>
+				        <span>${student.name}</span>
+				        <span>${student.job}</span>
+				        <span>
+				          <form action="${pageContext.request.contextPath}/Teacher/StudentEdit.action"
+				                method="post" style="margin:0;">
+				            <input type="hidden" name="studentId" value="${student.id}">
+				            <button type="submit" class="edit-btn">編集</button>
+				          </form>
+				        </span>
+				      </li>
+				    </c:forEach>
+				  </c:otherwise>
+				</c:choose>
 			</ul>
 		</main>
 		<!-- フッター（JSで読み込み） -->

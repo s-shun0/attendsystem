@@ -138,4 +138,17 @@ public class StudentDao extends Dao {
         }
         return s;
     }
+    
+    // クラス単位で生徒を一括削除
+    public int deleteStudentsByClass(int classnum) throws Exception {
+
+        String sql = "DELETE FROM users WHERE class = ?";
+
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, classnum);
+            return ps.executeUpdate(); // 削除件数
+        }
+    }
 }

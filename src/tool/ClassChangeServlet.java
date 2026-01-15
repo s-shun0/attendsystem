@@ -46,7 +46,7 @@ public class ClassChangeServlet extends HttpServlet {
         
         Integer classnum = (Integer) session.getAttribute("classnum");
 
-        // クラス変更後も全学生を再取得
+        // クラス変更後に新しく選択しているクラスの情報を取得
         List<Student> students;
         try {
             students = dao.getStudentsByClass(classnum);
