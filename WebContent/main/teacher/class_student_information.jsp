@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -14,12 +15,30 @@
 
 </head>
 <body>
-	<p>hello</p>
 	<div class="wrapper">
 		<!-- ヘッダー（JSで読み込み） -->
 		<div id="header"></div>
-		<main class="content">
-			
+		<h2 style="text-align: center;">学生編集</h2>
+		<main class="content class-student-information">
+			<ul class="class-change">
+				
+			    <!-- ヘッダー -->
+			    <li class="class-student-list-header">
+			      <span></span>
+			      <span>学籍番号</span>
+			      <span>氏名</span>
+			      <span>コース</span>
+			    </li>
+				
+			    <c:forEach var="student" items="${students}">
+			      <li class="class-student-row">
+			        <span>${student.id}</span>
+			        <span>${student.name}</span>
+			        <span>${student.job}</span>
+			      </li>
+			    </c:forEach>
+				
+			</ul>
 		</main>
 		<!-- フッター（JSで読み込み） -->
 	    <div id="footer"></div>
