@@ -21,7 +21,7 @@
 			<ul class="other-edits-list">
 				<li><a href="/attendsystem/Teacher/ClassStudentInformation.action">クラスの生徒情報一覧</a></li>
 				<li><a href="/attendsystem/Teacher/ChangeOfBelongingClass.action">所属クラスの更新</a></li>
-				<li><a href="/attendsystem/Main/ClassSelectExcute.action">教員の情報更新</a></li>
+				<li><a href="/attendsystem/Main/TeacherInformationUpdate.action">教員の情報更新</a></li>
 			</ul>
 		</main>
 		<!-- フッター（JSで読み込み） -->
