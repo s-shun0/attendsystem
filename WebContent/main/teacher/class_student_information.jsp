@@ -18,7 +18,18 @@
 	<div class="wrapper">
 		<!-- ヘッダー（JSで読み込み） -->
 		<div id="header"></div>
-		<h2 style="text-align: center;">学生編集</h2>
+		<h2 style="text-align: center;">クラスの生徒情報一覧</h2>
+		<!-- 検索エリア -->
+		<form action="${pageContext.request.contextPath}/Teacher/StudentSearch.action"
+		      method="get"
+		      class="student-search">
+		
+		  <input type="text"
+		         name="studentId"
+		         placeholder="学籍番号で検索">
+		
+		  <button type="submit">検索</button>
+		</form>		
 		<main class="content class-student-information">
 			<ul class="class-change">
 				
@@ -35,6 +46,12 @@
 			        <span>${student.id}</span>
 			        <span>${student.name}</span>
 			        <span>${student.job}</span>
+			        <span>
+			            <form action="${pageContext.request.contextPath}/Teacher/StudentEdit.action" method="post" style="margin:0;">
+			                <input type="hidden" name="studentId" value="${student.id}">
+			                <button type="submit" class="edit-btn">編集</button>
+			            </form>
+			        </span>
 			      </li>
 			    </c:forEach>
 				

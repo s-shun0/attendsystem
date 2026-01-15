@@ -3,6 +3,7 @@ package bean;
 public class Student {
     private String id;
     private String name;
+    private String email;
     private String job;
     private int classnum; // DBの class カラムに対応
 
@@ -20,6 +21,14 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getJob() {

@@ -361,16 +361,17 @@ body.complete #header a[href*="signout"] {
 /* ヘッダー */
 .class-student-information .class-student-list-header {
   display: grid;
-  grid-template-columns: 120px 160px 1fr;
+  grid-template-columns: 140px 200px 1fr 100px;
   padding: 12px 8px;
   font-weight: bold;
   border-bottom: 2px solid #333;
+  align-items: center;
 }
 
 /* 行 */
 .class-student-information .class-student-row {
   display: grid;
-  grid-template-columns: 120px 160px 1fr;
+  grid-template-columns: 140px 200px 1fr 100px;
   padding: 12px 8px;
   border-bottom: 1px solid #ccc;
   align-items: center;
@@ -385,6 +386,57 @@ body.complete #header a[href*="signout"] {
   display: none;
 }
 
+/* 編集ボタン */
+.edit-btn {
+  padding: 6px 14px;
+  font-size: 14px;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* hover */
+.edit-btn:hover {
+  background-color: #357abd;
+}
+
+/* 編集列の中央寄せ */
+.class-student-information .class-student-row span:last-child,
+.class-student-information .class-student-list-header span:last-child {
+  text-align: center;
+}
+
+.class-student-information form {
+  margin: 0;
+}
+
+
+/* ===============================
+   学生検索エリア
+================================ */
+.student-search {
+  max-width: 900px;
+  margin: 20px auto 30px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.student-search input {
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+.student-search button {
+  height: 40px;
+  padding: 0 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
 
 /* ===============================
