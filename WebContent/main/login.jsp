@@ -17,6 +17,7 @@
         <!-- ヘッダー -->
         <header class="d-flex flex-wrap justify-content-center py-3 px-5 mb-4 border-bottom border-2 bg-primary bg-opacity-10 bg-gradient">
             <h1 class="fs-4 mb-0">出席管理システム</h1>
+            <a href="/attendsystem/main/student/student_signup.jsp">サインアップ</a>
         </header>
 
         <!-- メインコンテンツ -->
@@ -74,6 +75,7 @@
                             <label class="form-check-label" for="password-display">
                                 パスワードを表示
                             </label>
+                            <a href="/attendsystem/Teacher/TeacherPasswordReset.action">パスワードを忘れた方はこちら</a>
                         </div>
 
                         <!-- ログインボタン -->

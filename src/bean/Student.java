@@ -1,15 +1,16 @@
 package bean;
 
 public class Student {
-
     private String id;
     private String name;
+    private String email;
     private String job;
-    private int classnum;
+    private int classnum; // DBの class カラムに対応
 
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -17,13 +18,23 @@ public class Student {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getJob() {
         return job;
     }
+
     public void setJob(String job) {
         this.job = job;
     }
@@ -31,6 +42,7 @@ public class Student {
     public int getClassnum() {
         return classnum;
     }
+
     public void setClassnum(int classnum) {
         this.classnum = classnum;
     }

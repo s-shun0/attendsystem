@@ -3,12 +3,13 @@ package Teacher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import tool.Action;
 
+public class TeacherPasswordResetAction extends Action {
 
-public class TeacherPasswordResetAction {
-	public void execute(HttpServletRequest req, HttpServletResponse res)
-			throws Exception {
-
-		req.getRequestDispatcher("student_password_reset.jsp").forward(req, res);
-	}
+    @Override
+    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+    	req.getRequestDispatcher("/main/common/password_reset_send.jsp").forward(req, res);
+    }
 }
+
