@@ -10,11 +10,7 @@
 <!-- ✅ ログインしている場合のみ表示 -->
 <c:if test="${user != null}">
   <div class="container">
-
-      <div class="logout">
-          <a href="仮状態">ログアウト</a>
-      </div>
-
+  
 	  <div class="logout">
 	  	<a href="/attendsystem/main/Logout.action">ログアウト</a>
 	  </div>
