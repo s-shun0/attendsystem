@@ -20,6 +20,9 @@
 		<main class="content">
 			<h2 class="text-error fs-4 mt-5">管理者権限が取得不可能なため実現不可との判断で画面遷移のみしております</h2>
 		</main>
+	    <div class="btn-center mt-4">
+	        <a href="${pageContext.request.contextPath}/main/Login.action">ログイン</a>
+	    </div>
 		<!-- フッター（JSで読み込み） -->
 	    <div id="footer"></div>
     </div>
