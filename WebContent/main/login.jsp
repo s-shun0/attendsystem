@@ -17,6 +17,7 @@
         <!-- ヘッダー -->
         <header class="d-flex flex-wrap justify-content-center py-3 px-5 mb-4 border-bottom border-2 bg-primary bg-opacity-10 bg-gradient">
             <h1 class="fs-4 mb-0">出席管理システム</h1>
+            <a href="/attendsystem/main/student/student_signup.jsp">サインアップ</a>
         </header>
 
         <!-- メインコンテンツ -->
