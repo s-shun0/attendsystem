@@ -45,7 +45,7 @@ public class Personal_Information_VerificationAction extends Action {
         student.put("name", target.getName());
         student.put("classnum", target.getClassnum());
 
-        // ===== ここから本番：DBから出欠取得 =====
+        // ===== DBから出欠取得 =====
         AttendanceDao adao = new AttendanceDao();
         List<Attendance> attendList =
                 adao.getByStudent(studentId);
@@ -60,7 +60,7 @@ public class Personal_Information_VerificationAction extends Action {
         int absent = 0;
         int late = 0;
 
-        // 初期化（←超重要）
+        // 初期化
         for (int m : months) {
             attendanceMap.put(String.valueOf(m), new HashMap<>());
         }
