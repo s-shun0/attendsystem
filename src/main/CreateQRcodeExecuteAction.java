@@ -37,11 +37,16 @@ public class CreateQRcodeExecuteAction extends Action {
                 req.setAttribute("errors", errors);
                 req.setAttribute("id", id);
                 
-                req.getRequestDispatcher("qrcode_display.jsp").forward(req, res);
+                req.getRequestDispatcher("qrcode_login.jsp").forward(req, res);
             }
             
         } catch(Exception e) {
-            e.printStackTrace();
+            errors.add("IDまたはパスワードが正しくありません");
+            req.setAttribute("errors", errors);
+            req.setAttribute("id", id);
+            
+            req.getRequestDispatcher("qrcode_login.jsp").forward(req, res);
+
         }
     }
 }

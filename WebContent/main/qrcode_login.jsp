@@ -6,6 +6,9 @@
         response.sendRedirect(request.getContextPath() + "/error.jsp");
         return;
     }
+    
+    // エラーメッセージをセッションから取得
+    String errors = (String) session.getAttribute("errors");
 %>
 <!DOCTYPE html>
 <html>
@@ -95,15 +98,36 @@
             content: "✓ ";
             font-weight: bold;
         }
+
+        .error-message {
+            text-align: center;
+            color: #d32f2f;
+            margin-bottom: 20px;
+            padding: 12px;
+            background-color: #ffebee;
+            border-radius: 4px;
+            border-left: 4px solid #d32f2f;
+        }
+
+        .error-message::before {
+            content: "✕ ";
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h1>ログイン</h1>
-        
+
         <div class="qr-verified">
             QRコード認証完了
         </div>
+
+        <% if (errors != null && !errors.isEmpty()) { %>
+            <div class="error-message">
+                <%= errors %>
+            </div>
+        <% } %>
 
         <form method="POST" action="CreateQRcodeExecute.action">
             <div class="form-group">
