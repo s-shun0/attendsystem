@@ -207,78 +207,100 @@ body.complete #header a[href*="signout"] {
     min-width: 100px;
 }
 
-/* ===============================
-   欠席アーカイブ（完全版）
-================================ */
+/* ===== 欠席アーカイブ 専用（最終調整）===== */
 
-/* メイン表示領域 */
 .archive-content {
-    margin-top: 80px;          /* 固定ヘッダー分の余白 */
-    width: 100%;
+  margin-top: 20px;
+  padding: 10px;
 }
 
-/* 見出し */
-.archive-content h2 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 30px;
+/* カードを横並びにする核 */
+.student-list {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px;
+  justify-content: center;
 }
 
-/* 並び替えセレクトボックス */
-.archive-sort {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+/* 1枚カード */
+.student-card {
+  width: 260px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+
+  padding: 10px;
+  font-size: 14px;
 }
 
-.archive-sort select {
-    font-size: 1rem;
-    padding: 6px 12px;
+/* 名前 */
+.student-link {
+  font-size: 16px;
+  font-weight: bold;
 }
 
-/* テーブル中央配置 */
-.table-center {
-    display: flex;
-    justify-content: center;
+/* 累計 */
+.total {
+  margin-top: 6px;
+  font-weight: bold;
 }
 
-/* テーブル本体 */
-.archive-table {
-    width: 80%;
-    table-layout: fixed;       /* ★ 幅固定 */
+/* 危険ライン */
+.total.danger {
+  color: red;
+}
+
+/* スマホ */
+@media (max-width: 600px) {
+  .student-card {
+    width: 95% !important;
+  }
+}
+
+
+/* ===============================
+   個人情報表示画面
+================================ */
+.attendance-table {
     border-collapse: collapse;
-    background-color: #fff;
+    width: 100%;
+    table-layout: fixed;
+    font-size: 12px;
 }
 
-/* ヘッダー */
-.archive-table thead {
-    background-color: #f4f4f4;
+.attendance-table th,
+.attendance-table td {
+    border: 1px solid #000;
+    text-align: center;
+    height: 22px;
+    padding: 0;
 }
 
-.archive-table th {
+.attendance-table th {
+    background-color: #f8f8f8;
     font-weight: bold;
 }
 
-/* セル共通 */
-.archive-table th,
-.archive-table td {
-    padding: 10px 8px;
-    border: 1px solid #ccc;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 0.95rem;
-    width: calc(100% / 7);     /* ★ 7列完全均等 */
+.attendance-table td {
+    background-color: #fff;
 }
 
-/* 行ホバー */
-.archive-table tbody tr:hover {
-    background-color: #f9f9f9;
+.attendance-table th:first-child {
+    width: 40px;
 }
+
+
+.attendance-table th[colspan="31"] {
+    font-weight: bold;
 
 /* 数値を見やすく */
 .archive-table td {
     white-space: nowrap;
-}
+
 
 /* 学籍番号・氏名を少し強調 */
 .archive-table td:nth-child(1),
@@ -509,4 +531,4 @@ footer {
   border-top: 1px solid #ccc;
   margin-top: 40px;
   font-size: 0.9rem;
-}
+｝
