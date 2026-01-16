@@ -10,7 +10,7 @@
   <!-- ハンバーガーメニューアイコン（3本線） -->
   <div class="container">
 	  <div class="logout">
-	  	<a href="仮状態">ログアウト</a>
+	  	<a href="/attendsystem/main/Logout.action">ログアウト</a>
 	  </div>
 
 	  <div class="hamburger">

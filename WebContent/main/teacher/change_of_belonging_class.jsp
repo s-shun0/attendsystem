@@ -38,7 +38,7 @@
 				      <option value="61">61教室</option>
 				      <option value="62">62教室</option>
 				      <option value="63">63教室</option>
-				      <option value="63">63教室</option>
+				      <option value="64">64教室</option>
 				    </select>
 				
 				    <button type="submit" class="change-btn">変更</button>
