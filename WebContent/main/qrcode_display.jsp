@@ -40,8 +40,6 @@
     <title>QRコード表示</title>
     
     
-	<link rel="stylesheet" href="/attendsystem/css/style.css">
-	<link rel="stylesheet" href="/attendsystem/css/menu.css">
     
     <style>
         body {
@@ -190,7 +188,5 @@
             setInterval(updateTimer, 1000);
         });
     </script>
-    <script src="/attendsystem/js/header.js"></script>
-	<script src="/attendsystem/js/footer.js"></script>
 </body>
 </html>

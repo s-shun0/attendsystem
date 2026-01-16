@@ -74,6 +74,7 @@
                             <label class="form-check-label" for="password-display">
                                 パスワードを表示
                             </label>
+                            <a href="/attendsystem/Teacher/TeacherPasswordReset.action">パスワードを忘れた方はこちら</a>
                         </div>
 
                         <!-- ログインボタン -->

@@ -293,8 +293,208 @@ body.complete #header a[href*="signout"] {
     width: 40px;
 }
 
+
 .attendance-table th[colspan="31"] {
     font-weight: bold;
+
+/* 数値を見やすく */
+.archive-table td {
+    white-space: nowrap;
+
+
+/* 学籍番号・氏名を少し強調 */
+.archive-table td:nth-child(1),
+.archive-table td:nth-child(2) {
+    font-weight: 600;
+}
+
+/* 「対象の学生が存在しません」 */
+.archive-empty {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 50px;
+    color: #666;
+}
+
+
+/*---------------------------------------
+	change_of_belonging_class.jsp
+----------------------------------------*/
+/* 操作エリア */
+.change-action {
+  max-width: 900px;
+  margin: 0 auto 20px;
+  display: flex;
+  justify-content: flex-end; /* ← 右寄せ */
+  gap: 10px;
+}
+
+
+/* 一覧全体 */
+.class-change {
+  list-style: none;
+  padding: 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+/* change_of_belonging_class.jsp 専用で上書き */
+.class-change-page .class-change {
+  display: block;   /* ← flex を殺す */
+}
+
+/* ヘッダー・行共通 */
+.list-header,
+.student-row {
+  display: grid;
+  grid-template-columns: 40px 120px 160px 1fr 80px;
+  align-items: center;
+  padding: 12px 8px;
+}
+
+/* ヘッダー */
+.list-header {
+  font-weight: bold;
+  border-bottom: 2px solid #333;
+}
+
+/* 行 */
+.student-row {
+  border-bottom: 1px solid #ccc;
+}
+
+.student-row:hover {
+  background-color: #f5f5f5;
+}
+
+.no-student-text {
+  text-align: center;
+  font-weight: bold;
+  color: #666;
+}
+
+/* ===============================
+   クラス一覧（チェックなし版）
+   ※ JSP変更なし対応
+================================ */
+
+/* content の中央flex解除 */
+.content.class-student-information {
+  display: block;
+  align-items: initial;
+  justify-content: initial;
+}
+
+/* ul を縦並びに戻す */
+.class-student-information .class-change {
+  display: block;
+  margin-top: 40px;
+}
+
+/* ヘッダー */
+.class-student-information .class-student-list-header {
+  display: grid;
+  grid-template-columns: 140px 200px 1fr 100px;
+  padding: 12px 8px;
+  font-weight: bold;
+  border-bottom: 2px solid #333;
+  align-items: center;
+}
+
+/* 行 */
+.class-student-information .class-student-row {
+  display: grid;
+  grid-template-columns: 140px 200px 1fr 100px;
+  padding: 12px 8px;
+  border-bottom: 1px solid #ccc;
+  align-items: center;
+}
+
+.class-student-information .class-student-row:hover {
+  background-color: #f5f5f5;
+}
+
+/* 空span非表示 */
+.class-student-information .class-student-list-header span:first-child {
+  display: none;
+}
+
+/* 編集ボタン */
+.edit-btn {
+  padding: 6px 14px;
+  font-size: 14px;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* hover */
+.edit-btn:hover {
+  background-color: #357abd;
+}
+
+/* 編集列の中央寄せ */
+.class-student-information .class-student-row span:last-child,
+.class-student-information .class-student-list-header span:last-child {
+  text-align: center;
+}
+
+.class-student-information form {
+  margin: 0;
+}
+
+/* 生徒なし表示 */
+.no-student {
+  text-align: center;
+  color: #666;
+  padding: 20px 0;
+  font-weight: bold;
+}
+
+/* ===============================
+   学生検索エリア
+================================ */
+.student-search {
+  max-width: 900px;
+  margin: 20px auto 30px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.student-search input {
+  width: 300px;
+  height: 40px;
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+.student-search button {
+  height: 40px;
+  padding: 0 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* 一括削除ボタン */
+.bulk-delete-form {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.bulk-delete-btn {
+  background-color: #d9534f;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.bulk-delete-btn:hover {
+  background-color: #c9302c;
 }
 
 
@@ -331,4 +531,4 @@ footer {
   border-top: 1px solid #ccc;
   margin-top: 40px;
   font-size: 0.9rem;
-}
+｝
