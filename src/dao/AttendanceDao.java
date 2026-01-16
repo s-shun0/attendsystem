@@ -218,6 +218,40 @@ public class AttendanceDao extends Dao{
 		return list;
 	}
 	
+	// ===============================
+	// 個人出欠取得（新規）
+	// ===============================
+	public List<Attendance> getByStudent(String studentId) throws Exception {
+
+	    List<Attendance> list = new ArrayList<>();
+
+	    String sql =
+	        "select * from attendance " +
+	        "where student_id = ? " +
+	        "order by date asc";
+
+	    try (Connection con = getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql)) {
+
+	        ps.setString(1, studentId);
+
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            Attendance a = new Attendance();
+
+	            a.setId(rs.getString("student_id"));
+	            a.setDate(rs.getString("date"));
+	            a.setStatus(rs.getString("status"));
+	            a.setUpdate(rs.getString("updatetime"));
+
+	            list.add(a);
+	        }
+	    }
+
+	    return list;
+	}
+
 	
 	
 
