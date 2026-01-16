@@ -17,7 +17,7 @@ import bean.Attendance;
 
 public class AttendanceDao extends Dao{
 
-	private String baseSql="select * from attendance where id=? ";
+	private String baseSql = "select * from attendance where student_id=? ";
 
 	//qrコードで出席
 	public boolean attend(String id,String password) throws Exception{
@@ -25,14 +25,15 @@ public class AttendanceDao extends Dao{
 
 		Date date = new Date();
 		//データベース用
-		SimpleDateFormat  fm1 = new SimpleDateFormat("yyyy-mm-dd");
-		SimpleDateFormat  fm2 = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		SimpleDateFormat  fm1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat  fm2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// HH で24時間制に変更
 
 		String FM1 =	fm1.format(date);
 		String FM2 =	fm2.format(date);
 
 		//遅刻・欠席の判定用
-		SimpleDateFormat  check = new SimpleDateFormat("hhmm");
+		SimpleDateFormat  check = new SimpleDateFormat("HHmm");
 		String c =	check.format(date);
 		int C = Integer.parseInt(c);
 
@@ -43,27 +44,29 @@ public class AttendanceDao extends Dao{
 		String status="";
 		if (C > 1240 ){
 			status ="absent";
-		}else if(C >915){
-			status ="late_early";
+		}else if(C > 915){
+			status ="late";
 		}else{
 			status = "present";
 		}
 		int count=0;
+		String job="";
+		
 		try{
-
 			statement = connection.prepareStatement(baseSql);
 
 			statement.setString(1,id);
 			ResultSet rSet = statement.executeQuery();
-			if (rSet != null){
+			if(rSet.next()){
 				Statement = connection.prepareStatement("insert into attendance (student_id,date,status,updatetime) values(?,?,?,?)");
-				Statement.setString(1, id);
+				Statement.setString(1,id);
 				Statement.setString(2,FM1);
-				Statement.setString(3, status);
-				Statement.setString(4, FM2);
+				Statement.setString(3,status);
+				Statement.setString(4,FM2);
 			}
 		count = Statement.executeUpdate();
 		} catch (Exception e) {
+			e.printStackTrace(); 
 			throw e;
 		} finally {
 			if (statement != null) {
@@ -82,7 +85,7 @@ public class AttendanceDao extends Dao{
 				}
 			}
 		}
-		if (count > 0){
+		if (count > 0 && job != "教員"){
 			return true;
 		} else{
 			return false;
@@ -120,7 +123,7 @@ public class AttendanceDao extends Dao{
 				Attendance attend = new Attendance();
 				ResultSet rSet = statement.executeQuery();
 				if (rSet.next()){
-					attend.setId(rSet.getInt("student_id"));
+					attend.setId(rSet.getString("student_id"));
 					attend.setDate(rSet.getString("date"));
 					attend.setStatus(rSet.getString("status"));
 					attend.setUpdate(rSet.getString("updatetime"));
@@ -151,7 +154,72 @@ public class AttendanceDao extends Dao{
 		return list;
 	}
 
+	public ArrayList<Attendance> tracker(String class_,String date)throws Exception {
+		ArrayList<Attendance> list = new ArrayList<Attendance>();
+		Attendance att = new Attendance();
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		String users="";
+		String day="";
+		try{
+			if (class_ == null) {
+				users = "users.class=? and";
+			}if (date == null) {
+				day = "attendance.date=?";
+			}
+			
+			//プリペアードスタートメントにSQL文をセット
+			if (users==day) {
+				statement = connection.prepareStatement("select * from attendance INNER JOIN users ");
+			}else {
+				statement = connection.prepareStatement("select * from attendance "
+											+ "INNER JOIN users on attendance.student_id = users.id"
+											+ " where "+ users + day);
+				//学生番号をバインド
+				statement.setString(1,class_);
+				statement.setString(2, date);
+			}
+			//実行
+			ResultSet rSet = statement.executeQuery();
 
+
+			if (rSet.next()){
+				//学生インスタンスに検索結果をセット
+				att.setId(rSet.getString("student_id"));
+				att.setName(rSet.getString("name"));
+				att.setDate(rSet.getString("date"));
+				att.setStatus(rSet.getString("status"));
+				att.setUpdate(rSet.getString("updatetime"));
+				
+				list.add(att);
+			} else{
+				att = null;
+			}
+		} catch (Exception e){
+			throw e;
+		}finally {
+			if (statement != null){
+				try {
+					statement.close();
+				} catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+			if (connection != null){
+				try {
+					connection.close();
+				} catch(SQLException e){
+					throw e;
+				}
+			}
+		}
+		
+		
+		return list;
+	}
+	
+	
+	
 
 	//主席編集の追加
 

@@ -30,20 +30,33 @@ public class Absence_archiveAction extends Action {
         String classStr = req.getParameter("classnum");
         Integer classnum = null;
         if (classStr != null && !classStr.isEmpty()) {
-            try {
-                classnum = Integer.parseInt(classStr);
-            } catch (NumberFormatException ignored) {}
+            classnum = Integer.parseInt(classStr);
         }
 
         List<Map<String, Object>> rows = new ArrayList<>();
 
         try (Connection con = new Dao().getConnection()) {
 
-            String sql =
-                "SELECT id, name FROM users " +
-                (classnum != null ? "WHERE class=? " : "");
+        	StringBuilder sql = new StringBuilder();
+        	sql.append(
+        	    "SELECT u.id, u.name, " +
+        	    "COALESCE(t.absences, 0) AS absences, " +
+        	    "COALESCE(t.tardiness, 0) AS tardiness, " +
+        	    "COALESCE(t.leaving_early, 0) AS leaving_early, " +
+        	    "COALESCE(t.other, 0) AS other " +
+        	    "FROM users u " +
+        	    "LEFT JOIN total_absences t ON u.id = t.student_id " +
+        	    "WHERE u.job <> '教員' "
+        	);
 
-            try (PreparedStatement ps = con.prepareStatement(sql)) {
+        	if (classnum != null) {
+        	    sql.append("AND u.class = ?");
+        	}
+
+
+
+
+            try (PreparedStatement ps = con.prepareStatement(sql.toString())) {
 
                 if (classnum != null) {
                     ps.setInt(1, classnum);
@@ -52,32 +65,10 @@ public class Absence_archiveAction extends Action {
                 try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
 
-                        String sid = rs.getString("id");
-                        String name = rs.getString("name");
-
-                        int absences = 0;
-                        int tardiness = 0;
-                        int leaving = 0;
-                        int other = 0;
-
-                        String taSql =
-                            "SELECT absences, tardiness, leaving_early, other " +
-                            "FROM total_absences WHERE student_id=?";
-
-                        try (PreparedStatement ps2 =
-                                 con.prepareStatement(taSql)) {
-
-                            ps2.setString(1, sid);
-
-                            try (ResultSet rs2 = ps2.executeQuery()) {
-                                if (rs2.next()) {
-                                    absences = rs2.getInt("absences");
-                                    tardiness = rs2.getInt("tardiness");
-                                    leaving = rs2.getInt("leaving_early");
-                                    other = rs2.getInt("other");
-                                }
-                            }
-                        }
+                        int absences = rs.getInt("absences");
+                        int tardiness = rs.getInt("tardiness");
+                        int leaving = rs.getInt("leaving_early");
+                        int other = rs.getInt("other");
 
                         double weighted =
                                 absences * 1.0 +
@@ -86,8 +77,8 @@ public class Absence_archiveAction extends Action {
                                 other * 0.2;
 
                         Map<String, Object> row = new HashMap<>();
-                        row.put("id", sid);
-                        row.put("name", name);
+                        row.put("id", rs.getString("id"));
+                        row.put("name", rs.getString("name"));
                         row.put("absences", absences);
                         row.put("tardiness", tardiness);
                         row.put("leaving", leaving);
@@ -100,22 +91,25 @@ public class Absence_archiveAction extends Action {
             }
         }
 
-        if ("absence".equals(sort)) {
-            rows.sort(
-                Comparator.<Map<String, Object>, Double>
-                    comparing(r -> (Double) r.get("weighted"))
-                    .reversed()
-            );
-        } else {
-            rows.sort(Comparator.comparing(r -> (String) r.get("name")));
+        // ソート
+        switch (sort) {
+            case "absence":
+                rows.sort(
+                    Comparator.<Map<String, Object>, Double>
+                        comparing(r -> (Double) r.get("weighted"))
+                        .reversed()
+                );
+                break;
+            case "id":
+                rows.sort(Comparator.comparing(r -> (String) r.get("id")));
+                break;
+            default:
+                rows.sort(Comparator.comparing(r -> (String) r.get("name")));
         }
 
         req.setAttribute("rows", rows);
-        req.setAttribute("classnum", classnum);
-        req.setAttribute("selectedSort", sort);
-
         req.getRequestDispatcher(
-            "/main/teacher/student_information_list.jsp"
+            "/main/teacher/absence_archive.jsp"
         ).forward(req, resp);
     }
 }

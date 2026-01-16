@@ -38,6 +38,9 @@
 <head>
     <meta charset="UTF-8">
     <title>QRコード表示</title>
+    
+    
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -134,6 +137,8 @@
     </style>
 </head>
 <body>
+	<div id="header"></div>
+	
     <div class="container">
         <h1>QRコード表示</h1>
 
@@ -141,7 +146,8 @@
             <p>以下のQRコードをスキャンしてください：</p>
             <img src="data:image/png;base64,<%= qrImageBase64 %>" alt="QRコード">
         </div>
-
+		<script src="/attendsystem/js/header.js"></script>
+		<script src="/attendsystem/js/footer.js"></script>
         <div class="token-info">
             <label>生成されたトークン：</label>
             <span><%= token %></span>

@@ -4,18 +4,28 @@ import java.io.Serializable;
 
 public class Attendance implements Serializable {
 
-	private int student_id;
+	private String student_id;
+	private String student_name;
 	private String date;
 	private String status;
 	private String updatetime;
 
-	public int getId() {
+	public String getId() {
 		return student_id;
 	}
 
-	public void setId(int student_id) {
+	public void setId(String student_id) {
 		this.student_id = student_id;
 	}
+
+	public String getName() {
+		return student_name;
+	}
+	
+	public void setName(String student_name) {
+		this.student_name = student_name;
+	}
+	
 
 	public String getDate() {
 		return date;

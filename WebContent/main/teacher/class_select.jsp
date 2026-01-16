@@ -12,25 +12,25 @@
 <title>出席管理システム</title>
 
 </head>
-<body>
+<body class="class-select-page">
 
 	<div class="wrapper">
 		<!-- ヘッダー（JSで読み込み） -->
 		<div id="header"></div>
 		<main class="content">
 			<ul class="class-list">
-				<li><a href="/attendsystem/Teacher/ClassSelectExcute.action?classnum=41">41教室</a></li>
-				<li><a href="/attendsystem/Teacher/ClassSelectExcute.action?classnum=42">42教室</a></li>
-				<li><a href="/attendsystem/Teacher/ClassSelectExcute.action?classnum=43">43教室</a></li>
-				<li><a href="/attendsystem/Teacher/ClassSelectExcute.action?classnum=44">44教室</a></li>
-				<li><a href="/attendsystem/Teacher/ClassSelectExcute.action?classnum=51">51教室</a></li>
-				<li><a href="/attendsystem/Teacher/ClassSelectExcute.action?classnum=52">52教室</a></li>
-				<li><a href="/attendsystem/Teacher/ClassSelectExcute.action?classnum=53">53教室</a></li>
-				<li><a href="/attendsystem/Teacher/ClassSelectExcute.action?classnum=54">54教室</a></li>
-				<li><a href="/attendsystem/Teacher/ClassSelectExcute.action?classnum=61">61教室</a></li>
-				<li><a href="/attendsystem/Teacher/ClassSelectExcute.action?classnum=62">62教室</a></li>
-				<li><a href="/attendsystem/Teacher/ClassSelectExcute.action?classnum=63">63教室</a></li>
-				<li><a href="/attendsystem/Teacher/ClassSelectExcute.action?classnum=64">64教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=41">41教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=42">42教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=43">43教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=44">44教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=51">51教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=52">52教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=53">53教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=53">54教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=61">61教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=62">62教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=63">63教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=64">64教室</a></li>
 			</ul>
 		</main>
 		<!-- フッター（JSで読み込み） -->
