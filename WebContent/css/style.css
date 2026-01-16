@@ -296,11 +296,11 @@ body.complete #header a[href*="signout"] {
 
 .attendance-table th[colspan="31"] {
     font-weight: bold;
-
+}
 /* 数値を見やすく */
 .archive-table td {
     white-space: nowrap;
-
+}
 
 /* 学籍番号・氏名を少し強調 */
 .archive-table td:nth-child(1),
@@ -531,4 +531,4 @@ footer {
   border-top: 1px solid #ccc;
   margin-top: 40px;
   font-size: 0.9rem;
-｝
+}
