@@ -4,8 +4,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>パスワードリセットURL送信</title>
-	<link rel="stylesheet" href="../../css/style.css">
-	<link rel="stylesheet" href="../../css/menu.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/menu.css">
 </head>
 <body>
 <div class="wrapper">
@@ -26,7 +26,7 @@
 	<div id="footer"></div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="../../js/header.js"></script>
-<script src="../../js/footer.js"></script>
+<script src="../js/header.js"></script>
+<script src="../js/footer.js"></script>
 </body>
 </html>
