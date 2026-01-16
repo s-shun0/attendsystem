@@ -18,6 +18,10 @@
 <!-- ===== ヘッダー ===== -->
 <jsp:include page="/main/common/header.jsp" />
 
+<!-- ★ 固定ヘッダー分のスペーサー（高さ50px） -->
+<div style="height:50px;"></div>
+
+
 <div class="wrapper">
 
     <h2 class="archive-title">個人欠席詳細</h2>
