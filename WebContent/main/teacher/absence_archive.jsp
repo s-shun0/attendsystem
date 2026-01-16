@@ -94,5 +94,15 @@
 <script src="${pageContext.request.contextPath}/js/header.js"></script>
 <script src="${pageContext.request.contextPath}/js/footer.js"></script>
 
+<!-- ===== ハンバーガー補助スクリプト ===== -->
+<script>
+  $(function() {
+    $('.hamburger').on('click', function(){
+      $('.menu').toggleClass('open hidden');
+    });
+  });
+</script>
+
+
 </body>
 </html>

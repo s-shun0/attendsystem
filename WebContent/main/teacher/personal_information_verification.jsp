@@ -55,9 +55,8 @@
                     <th>${m}</th>
                     <c:forEach begin="1" end="31" var="d">
                         <td>
-    <c:out value="${attendanceMap[m.toString()][d.toString()]}" />
-</td>
-
+                            <c:out value="${attendanceMap[m.toString()][d.toString()]}" />
+                        </td>
                     </c:forEach>
                 </tr>
             </c:forEach>
@@ -66,7 +65,6 @@
 
     <!-- ===== 集計 ===== -->
     <h3 class="mt-4">出欠集計</h3>
-
     <table class="summary-table">
         <tr><th>出席数</th><td>${summary.present}</td></tr>
         <tr><th>欠席数</th><td>${summary.absent}</td></tr>
@@ -78,12 +76,20 @@
 <!-- ===== フッター ===== -->
 <jsp:include page="/main/common/footer.jsp" />
 
-<!-- ===== ハンバーガー動作用JS ===== -->
+<!-- ===== JS ===== -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script src="${pageContext.request.contextPath}/js/header.js"></script>
 <script src="${pageContext.request.contextPath}/js/footer.js"></script>
 
+<!-- ===== ハンバーガー動作用補助スクリプト ===== -->
+<script>
+  $(function() {
+    // class="hamburger" に合わせてクリックイベントを登録
+    $('.hamburger').on('click', function(){
+      $('.menu').toggleClass('open hidden');
+    });
+  });
+</script>
+
 </body>
 </html>
-
