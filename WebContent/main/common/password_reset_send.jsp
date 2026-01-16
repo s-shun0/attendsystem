@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/menu.css">
 </head>
-<body>
+<body class="class-select-page">
 <div class="wrapper">
 	<div id="header"></div>
 		<h2 class="text-password_reset fs-4 mt-5">パスワードリセットURL送信</h2>
