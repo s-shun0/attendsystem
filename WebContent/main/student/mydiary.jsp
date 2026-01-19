@@ -19,13 +19,27 @@
 	th {
 		background-color: #f0f0f0;
 	}
+	.user-info {
+	display: flex;
+	align-items: center;
+	gap : 350px;
+	
+	}
+	.user-info h2 {
+		margin: 0;
+	}
+	.user-info p {
+		margin: 0;
+	}
 </style>
 </head>
 <body>
 
 	<div>
-		<h2>出席管理表</h2>
-		
+	<div class="user-info">
+		<h2>${user.name}</h2>
+		<p>学生番号: ${user.id}</p>
+	</div>
 		<table>
 			<thead>
 				<tr>
