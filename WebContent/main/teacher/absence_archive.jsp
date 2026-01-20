@@ -22,11 +22,22 @@
 
 <div class="wrapper">
 
-<h2 class="archive-title">欠席アーカイブ</h2>
+<h2 class="archive-title">
+  欠席アーカイブ
+  <c:if test="${not empty classnum}">
+    （${classnum}教室）
+  </c:if>
+</h2>
+
 
 <!-- ===== 並び替え ===== -->
 <div class="sort-menu">
 <form method="get" action="Absence_archive.action">
+
+    <!-- セッションのclassnumを維持 -->
+    <input type="hidden" name="classnum"
+           value="${sessionScope.classnum}">
+
     <select name="sort" onchange="this.form.submit()">
     <option value="name" ${param.sort == 'name' ? 'selected' : ''}>名前順</option>
     <option value="id" ${param.sort == 'id' ? 'selected' : ''}>学籍番号順</option>
@@ -53,6 +64,7 @@
             ${s.name}
         </a>
     </div>
+    <div>学籍番号：${s.id}</div>
 
     <div>欠席：${s.absences}</div>
     <div>遅刻：${s.tardiness}</div>

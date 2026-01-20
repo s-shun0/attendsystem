@@ -73,6 +73,7 @@
         <tr><th>出席数</th><td>${summary.present}</td></tr>
         <tr><th>欠席数</th><td>${summary.absent}</td></tr>
         <tr><th>遅刻数</th><td>${summary.late}</td></tr>
+        <tr><th>その他</th><td>${summary.other}</td></tr>
     </table>
 
 </div>

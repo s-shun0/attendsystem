@@ -28,7 +28,24 @@
       <li>メニュー</li>
       <hr>
       <li><a href="/attendsystem/Teacher/ClassSelect.action">クラスセレクト</a></li>
-      <li><a href="/attendsystem/Teacher/Absence_archive.action">欠席アーカイブ</a></li>
+      <c:choose>
+  <c:when test="${sessionScope.classnum != null}">
+    <li>
+      <a href="/attendsystem/Teacher/Absence_archive.action?classnum=${sessionScope.classnum}">
+        欠席アーカイブ
+      </a>
+    </li>
+  </c:when>
+
+  <c:otherwise>
+    <li>
+      <a href="/attendsystem/Teacher/ClassSelect.action">
+        欠席アーカイブ（先にクラス選択）
+      </a>
+    </li>
+  </c:otherwise>
+</c:choose>
+
       <li><a href="/attendsystem/main/qrcode_display.jsp">QRコードジェネレーター</a></li>
       <li><a href="/attendsystem/Teacher/Attendance_Tracker.action">出席トラッカー</a></li>
       <li><a href="/attendsystem/Teacher/OtherEdits.action">その他の編集</a></li>
