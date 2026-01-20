@@ -28,11 +28,11 @@
 <div class="sort-menu">
 <form method="get" action="Absence_archive.action">
     <select name="sort" onchange="this.form.submit()">
-        <option value="name">名前順</option>
-        <option value="id">学籍番号順</option>
-        <option value="absence">欠席累計順</option>
-    </select>
-</form>
+    <option value="name" ${param.sort == 'name' ? 'selected' : ''}>名前順</option>
+    <option value="id" ${param.sort == 'id' ? 'selected' : ''}>学籍番号順</option>
+    <option value="absence" ${param.sort == 'absence' ? 'selected' : ''}>欠席累計順</option>
+</select>
+
 </div>
 
 <main class="archive-content">
