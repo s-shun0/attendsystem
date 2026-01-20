@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import bean.Attendance;
 import dao.AttendanceDao;
@@ -15,8 +16,10 @@ public class Attendance_TrackerAction extends Action {
     public void execute(HttpServletRequest req, HttpServletResponse resp)
             throws Exception {
     	
-    	String classnum = req.getParameter("classnum");
-    	if (classnum == null || classnum.trim().isEmpty()) {
+    	HttpSession session = req.getSession();
+    	Integer classnum = (Integer) session.getAttribute("classnum");
+    	String classnumStr = String.valueOf(classnum);
+    	if (classnum == null) {
     	    resp.sendRedirect("/attendsystem/Teacher/ClassSelect.action");
     	    return;
     	}
@@ -29,7 +32,7 @@ public class Attendance_TrackerAction extends Action {
         if (date != null ) {
         	ArrayList<Attendance> attendanceList = new ArrayList<Attendance>();
         	AttendanceDao aDao = new AttendanceDao();
-        	attendanceList = aDao.tracker(classnum,date);
+        	attendanceList = aDao.tracker(classnumStr,date);
         	 
         	req.setAttribute("attendanceList", attendanceList);
         	
