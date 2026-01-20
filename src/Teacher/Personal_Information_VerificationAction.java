@@ -59,7 +59,8 @@ public class Personal_Information_VerificationAction extends Action {
         int present = 0;
         int absent = 0;
         int late = 0;
-        int other = 0;   
+        int other = 0;
+        int leaving = 0;
 
         // 初期化
         for (int m : months) {
@@ -88,6 +89,8 @@ public class Personal_Information_VerificationAction extends Action {
                     mark = "△"; late++; break;
                 case "other":
                     mark = "□"; other++; break;
+                case "early_leave":
+                    mark = "▽"; leaving++; break;
             }
 
             System.out.println("登録: " + month + "/" + day + " = " + mark);
@@ -107,6 +110,7 @@ public class Personal_Information_VerificationAction extends Action {
         summary.put("present", present);
         summary.put("absent", absent);
         summary.put("late", late);
+        summary.put("early_leave", leaving);
         summary.put("other", other);
 
         req.setAttribute("student", student);
