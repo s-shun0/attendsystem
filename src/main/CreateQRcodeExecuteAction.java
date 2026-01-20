@@ -20,6 +20,7 @@ public class CreateQRcodeExecuteAction extends Action {
         String id = req.getParameter("username");
         String password = req.getParameter("password");
         
+            
         try {
             AttendanceDao aDao = new AttendanceDao(); 
             boolean jug = aDao.attend(id, password);
@@ -27,7 +28,9 @@ public class CreateQRcodeExecuteAction extends Action {
             if (jug) {
                 // ログイン成功
                 HttpSession session = req.getSession();
-                session.setAttribute("userId", id);
+                session.setAttribute("id", id);
+                session.setAttribute("password",password);
+                
                 
                 req.getRequestDispatcher("qrcode_loginexecute.jsp").forward(req, res);
                 
@@ -37,11 +40,21 @@ public class CreateQRcodeExecuteAction extends Action {
                 req.setAttribute("errors", errors);
                 req.setAttribute("id", id);
                 
-                req.getRequestDispatcher("qrcode_display.jsp").forward(req, res);
+                req.getRequestDispatcher("qrcode_login.jsp").forward(req, res);
             }
             
         } catch(Exception e) {
-            e.printStackTrace();
+            errors.add("IDまたはパスワードが正しくありません");
+            req.setAttribute("errors", errors);
+            req.setAttribute("id", id);
+            
+            req.getRequestDispatcher("qrcode_login.jsp").forward(req, res);
+
         }
     }
+
+	private boolean authenticateUser(String id, String password) {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
 }

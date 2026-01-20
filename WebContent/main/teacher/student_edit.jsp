@@ -25,10 +25,10 @@
 			  <input type="hidden" name="oldId" value="${student.id}">
 			
 			  氏名：
-			  <input type="text" name="name" value="${student.name}"><br>
+			  <input type="text" name="name" value="${student.name}" required><br>
 			
 			  コース：<br>
-			  <select name="job">
+			  <select name="job" required>
 			
 			    <option value="システム開発コース"
 			      ${student.job == 'システム開発コース' ? 'selected' : ''}>
@@ -58,10 +58,10 @@
 			  <br><br>
 			
 			  学籍番号：
-			  <input type="text" name="newId" value="${student.id}"><br>
+			  <input type="text" name="newId" value="${student.id}" required><br>
 			
 			  メールアドレス：
-			  <input type="email" name="email" value="${student.email}"><br>
+			  <input type="email" name="email" value="${student.email}" required><br>
 			
 			  <button type="submit">更新</button>
 			</form>

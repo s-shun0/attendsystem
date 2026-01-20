@@ -17,7 +17,7 @@ import bean.Attendance;
 
 public class AttendanceDao extends Dao{
 
-	private String baseSql = "select * from attendance where student_id=? ";
+	private String baseSql = "select * from users where id=? and password=?; ";
 
 	//qrコードで出席
 	public boolean attend(String id,String password) throws Exception{
@@ -56,6 +56,7 @@ public class AttendanceDao extends Dao{
 			statement = connection.prepareStatement(baseSql);
 
 			statement.setString(1,id);
+			statement.setString(2,password);
 			ResultSet rSet = statement.executeQuery();
 			if(rSet.next()){
 				Statement = connection.prepareStatement("insert into attendance (student_id,date,status,updatetime) values(?,?,?,?)");
@@ -92,48 +93,110 @@ public class AttendanceDao extends Dao{
 		}
 	}
 
-	public List<Attendance> all(int id)throws Exception{
-		List<Attendance> list = new ArrayList<Attendance>();
+	public ArrayList<ArrayList<Integer>> all(String id)throws Exception{
+		ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 
 		//今年
 		LocalDateTime nowDate = LocalDateTime.now();
 		DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy"); // ①
+		DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("MM");
+		String month = dtf2.format(nowDate);
+		String month_next="";
+		
+		int tmp1 = Integer.parseInt(month);
+		String year = dtf1.format(nowDate);			
+		String next="";
+		
+		int tmp2 = Integer.parseInt(year);
+		if (tmp1 < 4) {
+			next = String.valueOf(tmp2);
+			year= String.valueOf(tmp2-1);
+		}else {
+			next = String.valueOf(tmp2);
+		}
+		
 
-		String month="";
-		String year = dtf1.format(nowDate);
-
-		int tmp = Integer.parseInt(year) + 1;
-		String next = String.valueOf(tmp);
-		String base="select * attendance where id=? ";
-		String condition="order by date asc";
+		String base="select * from attendance where student_id=? ";
+		String condition="ORDER BY date ASC;";
+		
+		//欠席数計算
+		String num ="";
+		int present = 0;
+		int absent =0;
+		int late = 0;
+		int early_leave = 0;
+		int excused =0;
+		int other =0;
+		int all= 0;
+		
+		
 		try{
 			for(int i=1;i<=12;i++){
-				 ;
+				ArrayList<Integer> List = new ArrayList<Integer>();
+				
 				if (i<10){
 					month=String.valueOf(i+3);
-					statement = connection.prepareStatement(base+"and date like %"+year+"-"+month+"%" +condition);
+					month_next=String.valueOf(i+4);
+					statement = connection.prepareStatement(base+"AND date >= '"+year+"-"+month+"-01'"
+																+ "AND date <  '"+year+"-"+month_next+"-01'"
+																+condition);
 				}else{
 					month=String.valueOf(i-9);
-					statement = connection.prepareStatement(base+"and date like %"+next+"-"+month+"%" +condition);
+					statement = connection.prepareStatement(base+"AND date >= '"+next+"-"+month+"-01'"
+																+ "AND date <  '"+next+"-"+month_next+"-01'"
+																+condition);
+				}
+				statement.setString(1,id);
 
+				try {
+					ResultSet rSet = statement.executeQuery();
+					if (rSet.next()){
+						num = rSet.getString("status");
+						if(num.equals("late")) {
+							late++;
+						}else if (num.equals("early_leave")) {
+							early_leave++;
+						}else if (num.equals("absent")) {
+							absent++;
+						}else if(num.equals("present")) {
+							present++;
+						}else if (num.equals("excused")) {
+							excused++;
+						}else {
+							other++;
+						}
+					}
+					
+					int num3 =late+early_leave;
+					all =((absent + (Math.round(num3)/3)) * 10+ ((num3)%3)*3);
+					
+					
+					List.add(present);
+					List.add(absent);
+					List.add(late);
+					List.add(early_leave);
+					List.add(excused);
+					List.add(other);
+					List.add(all);
+				}catch(Exception e) {
+					
+					List.add(present);
+					List.add(absent);
+					List.add(late);
+					List.add(early_leave);
+					List.add(excused);
+					List.add(other);
+					List.add(all);
+					
 				}
-				statement.setInt(1,id);
-				Attendance attend = new Attendance();
-				ResultSet rSet = statement.executeQuery();
-				if (rSet.next()){
-					attend.setId(rSet.getString("student_id"));
-					attend.setDate(rSet.getString("date"));
-					attend.setStatus(rSet.getString("status"));
-					attend.setUpdate(rSet.getString("updatetime"));
-				}
-				list.add(attend);
+				list.add(List);
 			}
 
 		} catch (Exception e) {
 			throw e;
-		} finally {
+		} finally {  
 			if (statement != null) {
 				try {
 					statement.close();
@@ -218,6 +281,40 @@ public class AttendanceDao extends Dao{
 		return list;
 	}
 	
+	// ===============================
+	// 個人出欠取得（新規）
+	// ===============================
+	public List<Attendance> getByStudent(String studentId) throws Exception {
+
+	    List<Attendance> list = new ArrayList<>();
+
+	    String sql =
+	        "select * from attendance " +
+	        "where student_id = ? " +
+	        "order by date asc";
+
+	    try (Connection con = getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql)) {
+
+	        ps.setString(1, studentId);
+
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            Attendance a = new Attendance();
+
+	            a.setId(rs.getString("student_id"));
+	            a.setDate(rs.getString("date"));
+	            a.setStatus(rs.getString("status"));
+	            a.setUpdate(rs.getString("updatetime"));
+
+	            list.add(a);
+	        }
+	    }
+
+	    return list;
+	}
+
 	
 	
 

@@ -4,10 +4,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>パスワードリセットURL送信</title>
-	<link rel="stylesheet" href="../../css/style.css">
-	<link rel="stylesheet" href="../../css/menu.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/menu.css">
 </head>
-<body>
+<body class="class-select-page">
 <div class="wrapper">
 	<div id="header"></div>
 		<h2 class="text-password_reset fs-4 mt-5">パスワードリセットURL送信</h2>
@@ -26,7 +26,7 @@
 	<div id="footer"></div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="../../js/header.js"></script>
-<script src="../../js/footer.js"></script>
+<script src="../js/header.js"></script>
+<script src="../js/footer.js"></script>
 </body>
 </html>

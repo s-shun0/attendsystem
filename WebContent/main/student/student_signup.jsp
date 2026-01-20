@@ -60,7 +60,7 @@
 					<input class="w-25 btn btn-lg btn-primary" type="submit" name="login" value="ログイン"/>
 				</div>
 			</form>
-			<a href="Login.action">戻る</a>
+			<a href="${pageContext.request.contextPath}/main/Login.action">戻る</a>
 		</section>
 	</c:param>
 </c:import>

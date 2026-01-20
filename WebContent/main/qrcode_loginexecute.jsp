@@ -95,11 +95,11 @@
                 <span class="info-label">出席時刻:</span>
                 <%= new java.text.SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss").format(new java.util.Date()) %>
             </div>
+	        <form action="../Student/MyDiary.action" method="POST">
+    			<button type="submit" class="btn btn-secondary">あなたのページへ</button>
+			</form>
         </div>
         
-        <div class="button-group">
-            <a href="home.jsp" class="btn btn-secondary">ホームへ</a>
-        </div>
     </div>
 </body>
 </html>
