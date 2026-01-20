@@ -67,7 +67,6 @@ public class Personal_Information_VerificationAction extends Action {
             attendanceMap.put(String.valueOf(m), new HashMap<>());
         }
 
-        System.out.println("---- 変換開始 ----");
 
         for (Attendance a : attendList) {
 
@@ -93,7 +92,6 @@ public class Personal_Information_VerificationAction extends Action {
                     mark = "▽"; leaving++; break;
             }
 
-            System.out.println("登録: " + month + "/" + day + " = " + mark);
 
             if (attendanceMap.containsKey(month)) {
                 attendanceMap.get(month).put(day, mark);
