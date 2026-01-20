@@ -61,7 +61,7 @@ public class Absence_archiveAction extends Action {
             "  SUM(CASE WHEN a.status = 'present' THEN 1 ELSE 0 END) AS present, " +
             "  SUM(CASE WHEN a.status = 'absent' THEN 1 ELSE 0 END) AS absences, " +
             "  SUM(CASE WHEN a.status = 'late' THEN 1 ELSE 0 END) AS tardiness, " +
-            "  SUM(CASE WHEN a.status = 'leaving' THEN 1 ELSE 0 END) AS leaving_early, " +
+            "  SUM(CASE WHEN a.status = 'early_leave' THEN 1 ELSE 0 END) AS leaving_early, " +
             "  SUM(CASE WHEN a.status = 'other' THEN 1 ELSE 0 END) AS other " +
 
             "FROM users u " +
