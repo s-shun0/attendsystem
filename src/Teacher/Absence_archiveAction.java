@@ -23,19 +23,34 @@ public class Absence_archiveAction extends Action {
 
         resp.setContentType("text/html; charset=UTF-8");
 
+        // ===== ソートパラメータ =====
         String sort = Optional.ofNullable(req.getParameter("sort"))
                               .orElse("name");
 
+        // ===== クラス番号の取得 =====
         String classStr = req.getParameter("classnum");
+
+        // ハンバーガー経由の場合はセッションから
+        if (classStr == null) {
+            Object s = req.getSession().getAttribute("classnum");
+            if (s != null) {
+                classStr = s.toString();
+            }
+        }
+
         Integer classnum = null;
         if (classStr != null && !classStr.isEmpty()) {
             classnum = Integer.parseInt(classStr);
         }
 
+        // デバッグ
+        System.out.println("classnum = " + classnum);
+
         List<Map<String, Object>> rows = new ArrayList<>();
 
         try (Connection con = new Dao().getConnection()) {
 
+            // ===== SQL 作成 =====
             StringBuilder sql = new StringBuilder();
 
             sql.append(
@@ -52,65 +67,72 @@ public class Absence_archiveAction extends Action {
             "FROM users u " +
             "LEFT JOIN attendance a ON u.id = a.student_id " +
 
-            // ★★ ここが超重要 ★★
             "WHERE u.job <> '教員' " +
             "AND u.name IS NOT NULL " +
             "AND TRIM(u.name) <> '' "
             );
 
-            if (classnum != null) {
+            boolean useClass = (classnum != null);
+
+            if (useClass) {
                 sql.append("AND u.class = ? ");
             }
 
-            sql.append("GROUP BY u.id, u.name ");
+            sql.append("GROUP BY u.id, u.name");
 
-            try (PreparedStatement ps = con.prepareStatement(sql.toString())) {
+            // ===== PreparedStatement =====
+            PreparedStatement ps = con.prepareStatement(sql.toString());
 
-                if (classnum != null) {
-                    ps.setInt(1, classnum);
-                }
-
-                try (ResultSet rs = ps.executeQuery()) {
-                    while (rs.next()) {
-
-                        int absences  = rs.getInt("absences");
-                        int tardiness = rs.getInt("tardiness");
-                        int leaving   = rs.getInt("leaving_early");
-                        int other     = rs.getInt("other");
-
-                        double tardinessWeighted = tardiness / 3.0;
-                        double leavingWeighted   = leaving / 3.0;
-
-                        double weighted =
-                            absences + tardinessWeighted + leavingWeighted;
-
-                        if (weighted >= 80) {
-                            weighted += other;
-                        }
-
-                        Map<String, Object> row = new HashMap<>();
-                        row.put("id", rs.getString("id"));
-                        row.put("name", rs.getString("name"));
-
-                        row.put("absences", absences);
-                        row.put("tardiness", tardiness);
-                        row.put("leaving", leaving);
-                        row.put("other", other);
-                        row.put("weighted", weighted);
-
-                        rows.add(row);
-                    }
-                }
+            if (useClass) {
+                ps.setInt(1, classnum);
             }
+
+            // ===== 実行 =====
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                int absences  = rs.getInt("absences");
+                int tardiness = rs.getInt("tardiness");
+                int leaving   = rs.getInt("leaving_early");
+                int other     = rs.getInt("other");
+
+                // 遅刻・早退は3回で1欠席
+                double tardinessWeighted = tardiness / 3.0;
+                double leavingWeighted   = leaving / 3.0;
+
+                double weighted =
+                    absences + tardinessWeighted + leavingWeighted;
+
+                // 80以上ならその他も加算
+                if (weighted >= 80) {
+                    weighted += other;
+                }
+
+                Map<String, Object> row = new HashMap<>();
+                row.put("id", rs.getString("id"));
+                row.put("name", rs.getString("name"));
+
+                row.put("absences", absences);
+                row.put("tardiness", tardiness);
+                row.put("leaving", leaving);
+                row.put("other", other);
+                row.put("weighted", weighted);
+
+                rows.add(row);
+            }
+
+            rs.close();
+            ps.close();
         }
 
-        // ★ Java側でも二重ガード
+        // ===== 空白名の除去 =====
         rows.removeIf(r -> {
             String name = String.valueOf(r.get("name"));
             return name == null || name.trim().isEmpty();
         });
 
-        // ===== ソート処理 =====
+        // ===== ソート =====
         System.out.println("sort param = " + sort);
 
         switch (sort) {
@@ -142,13 +164,18 @@ public class Absence_archiveAction extends Action {
             break;
         }
 
+        // デバッグ表示
         System.out.println("---- 並び替え結果 ----");
         for (Map<String,Object> r : rows) {
             System.out.println(r.get("name") + " / " + r.get("weighted"));
         }
 
+        // JSPへ
+        req.setAttribute("rows", rows);
+        req.setAttribute("classnum", classnum);
         req.setAttribute("rows", rows);
         req.getRequestDispatcher("/main/teacher/absence_archive.jsp")
            .forward(req, resp);
+
     }
 }
