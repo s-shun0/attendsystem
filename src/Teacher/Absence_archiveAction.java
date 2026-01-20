@@ -43,8 +43,6 @@ public class Absence_archiveAction extends Action {
             classnum = Integer.parseInt(classStr);
         }
 
-        // デバッグ
-        System.out.println("classnum = " + classnum);
 
         List<Map<String, Object>> rows = new ArrayList<>();
 
@@ -97,12 +95,12 @@ public class Absence_archiveAction extends Action {
                 int leaving   = rs.getInt("leaving_early");
                 int other     = rs.getInt("other");
 
-                // 遅刻・早退は3回で1欠席
-                double tardinessWeighted = tardiness / 3.0;
-                double leavingWeighted   = leaving / 3.0;
+                // ----- 計算 -----
+                double raw =
+                    absences + (tardiness + leaving) / 3.0;
 
-                double weighted =
-                    absences + tardinessWeighted + leavingWeighted;
+                // ★ 切り捨て 1桁
+                double weighted = Math.floor(raw * 10) / 10.0;
 
                 // 80以上ならその他も加算
                 if (weighted >= 80) {
@@ -122,6 +120,7 @@ public class Absence_archiveAction extends Action {
                 rows.add(row);
             }
 
+
             rs.close();
             ps.close();
         }
@@ -133,7 +132,6 @@ public class Absence_archiveAction extends Action {
         });
 
         // ===== ソート =====
-        System.out.println("sort param = " + sort);
 
         switch (sort) {
 
@@ -164,11 +162,6 @@ public class Absence_archiveAction extends Action {
             break;
         }
 
-        // デバッグ表示
-        System.out.println("---- 並び替え結果 ----");
-        for (Map<String,Object> r : rows) {
-            System.out.println(r.get("name") + " / " + r.get("weighted"));
-        }
 
         // JSPへ
         req.setAttribute("rows", rows);
