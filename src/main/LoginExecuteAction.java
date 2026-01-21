@@ -44,6 +44,9 @@ public class LoginExecuteAction extends Action {
         // DAOを使用してユーザー認証
         UserDao userDao = new UserDao();
         User user = userDao.login(id, password);
+        // 教員情報更新の時に使いたいからセッションに保存追加
+        req.getSession().setAttribute("id", id);
+        req.getSession().setAttribute("password", password);
 
         if (user != null) {
             // ログイン成功
