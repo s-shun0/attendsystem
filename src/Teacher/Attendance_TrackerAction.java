@@ -17,8 +17,8 @@ public class Attendance_TrackerAction extends Action {
     public void execute(HttpServletRequest req, HttpServletResponse resp)
             throws Exception {
     	
-    	String classnum = req.getParameter("classnum");
-    	if (classnum == null || classnum.trim().isEmpty()) {
+    	String classnum=req.getParameter("classnum");
+    	if (classnum == null) {
     	    resp.sendRedirect("/attendsystem/Teacher/ClassSelect.action");
     	    return;
     	}
@@ -34,7 +34,9 @@ public class Attendance_TrackerAction extends Action {
     	ArrayList<Attendance> attendanceList = new ArrayList<Attendance>();
     	AttendanceDao aDao = new AttendanceDao();
         if (date != null ) {
+        
         	attendanceList = aDao.tracker(classnum,date);
+        	 
         	req.setAttribute("attendanceList", attendanceList);
         	req.setAttribute("date", date);
         }else {
