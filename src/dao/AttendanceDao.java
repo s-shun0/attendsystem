@@ -222,22 +222,27 @@ public class AttendanceDao extends Dao{
 		Attendance att = new Attendance();
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
-		String users="";
+		String classnum="";
 		String day="";
 		try{
-			if (class_ == null) {
-				users = "users.class=? and";
-			}if (date == null) {
+			if (class_ != null) {
+				classnum = "users.class=? ";
+				if (date != null) {
+					day = "and attendance.date=?";
+				}
+			}
+			else if (date != null) {
 				day = "attendance.date=?";
 			}
 			
 			//プリペアードスタートメントにSQL文をセット
-			if (users==day) {
-				statement = connection.prepareStatement("select * from attendance INNER JOIN users ");
+			if (classnum == day) {
+				statement = connection.prepareStatement("select * from attendance INNER JOIN users "
+														+ " on attendance.student_id = users.id ");
 			}else {
 				statement = connection.prepareStatement("select * from attendance "
 											+ "INNER JOIN users on attendance.student_id = users.id"
-											+ " where "+ users + day);
+											+ " where "+ classnum + day);
 				//学生番号をバインド
 				statement.setString(1,class_);
 				statement.setString(2, date);

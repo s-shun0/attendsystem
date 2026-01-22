@@ -35,18 +35,20 @@
 
             <div class="pass_reset">
                 <label>日付</label>
-                <input type="date" name="date" class="form-control">
+                <input type="date" value="${date}" name="date" class="form-control">
             </div>
 
             <div class="pass_reset_again">
-                <label>クラス</label>
-                <select name="classnum" class="form-control">
-                    <option value="">選択</option>
-                    <c:forEach var="cls" items="${classList}">
-                        <option value="${cls}">${cls}</option>
-                    </c:forEach>
-                </select>
-            </div>
+			    <label>クラス</label>
+			    <select name="classnum" class="form-control">
+			        <option value="">選択</option>
+			        <c:forEach var="cls" items="${classList}">
+			            <option value="${cls}" 
+			                    <c:if test="${cls == classnum}">selected</c:if>
+			            >${cls}</option>
+			        </c:forEach>
+			    </select>
+			</div>
 
         </form>
 
