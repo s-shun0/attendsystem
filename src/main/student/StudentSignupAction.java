@@ -1,4 +1,4 @@
-package Student;
+package main.student;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
