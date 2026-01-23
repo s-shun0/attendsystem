@@ -3,12 +3,53 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import bean.Student;
 
 public class StudentDao extends Dao {
+	
+	
+	public boolean  getLogin(String id, String password) throws Exception{
+		boolean count = false;
+		
+		String sql="select * from users where id=? and password=? and job <> '教員'"; 
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		try {
+			statement=connection.prepareStatement(sql);
+			statement.setString(1, id);
+			statement.setString(2, password);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				count = true;
+			}
+		}catch(Exception e) {
+			
+			throw e;
+		}finally{
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			//コネクションを閉じる
+			if (connection != null){
+				try {
+					connection.close();
+				} catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+		}
+		return count;
+	}
+	
+	
 
     // 全学生取得
     public List<Student> getAllStudents() throws Exception {
