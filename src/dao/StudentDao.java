@@ -49,7 +49,7 @@ public class StudentDao extends Dao {
     // 特定クラスの学生取得
     public List<Student> getStudentsByClass(int classnum) throws Exception {
         List<Student> list = new ArrayList<>();
-        String sql = "SELECT id, name, job, class FROM users WHERE class = ? ORDER BY id";
+        String sql = "SELECT id, name, job, class FROM users WHERE class = ? AND job <> '教員' ORDER BY id";
 
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {

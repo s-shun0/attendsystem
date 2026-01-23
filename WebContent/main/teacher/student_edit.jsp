@@ -27,7 +27,7 @@
 			  氏名：
 			  <input type="text" name="name" value="${student.name}" required><br>
 			
-			  コース：<br>
+			  コース：
 			  <select name="job" required>
 			
 			    <option value="システム開発コース"
@@ -54,8 +54,7 @@
 			      ${student.job == '情報IT＋東京経営大学卒業コース' ? 'selected' : ''}>
 			      情報IT＋東京経営大学卒業コース
 			    </option>
-			  </select>
-			  <br><br>
+			  </select><br>
 			
 			  学籍番号：
 			  <input type="text" name="newId" value="${student.id}" required><br>

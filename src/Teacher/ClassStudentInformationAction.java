@@ -6,8 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import bean.User;
-import dao.UserDao;
+import bean.Student;
+import dao.StudentDao;
 import tool.Action;
 
 public class ClassStudentInformationAction extends Action {
@@ -18,8 +18,8 @@ public class ClassStudentInformationAction extends Action {
     	HttpSession session = req.getSession();
     	int classnum = (int) session.getAttribute("classnum");
     	
-        UserDao userDao = new UserDao();
-        List<User> students = userDao.class_(classnum);
+        StudentDao StudentDao = new StudentDao();
+        List<Student> students = StudentDao.getStudentsByClass(classnum);
         
         // セッションに保存
         req.getSession().setAttribute("students", students);
