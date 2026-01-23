@@ -1,10 +1,11 @@
 package Teacher;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import bean.Attendance;
 import dao.AttendanceDao;
@@ -16,26 +17,32 @@ public class Attendance_TrackerAction extends Action {
     public void execute(HttpServletRequest req, HttpServletResponse resp)
             throws Exception {
     	
-    	HttpSession session = req.getSession();
-    	Integer classnum = (Integer) session.getAttribute("classnum");
-    	String classnumStr = String.valueOf(classnum);
+    	String classnum=req.getParameter("classnum");
     	if (classnum == null) {
     	    resp.sendRedirect("/attendsystem/Teacher/ClassSelect.action");
     	    return;
     	}
+    	
+    	LocalDateTime nowDate = LocalDateTime.now();
+    	DateTimeFormatter dtf1 =
+    		DateTimeFormatter.ofPattern("yyyy-MM-dd"); // ①
+    	String now = dtf1.format(nowDate);
     	String date = req.getParameter("date");
-//        
-//        List<String> errors = new ArrayList<String>();
-//
-//        HttpSession session = req.getSession();
+    	
 
+
+    	ArrayList<Attendance> attendanceList = new ArrayList<Attendance>();
+    	AttendanceDao aDao = new AttendanceDao();
         if (date != null ) {
-        	ArrayList<Attendance> attendanceList = new ArrayList<Attendance>();
-        	AttendanceDao aDao = new AttendanceDao();
-        	attendanceList = aDao.tracker(classnumStr,date);
+        
+        	attendanceList = aDao.tracker(classnum,date);
         	 
         	req.setAttribute("attendanceList", attendanceList);
-        	
+        	req.setAttribute("date", date);
+        }else {
+        	attendanceList = aDao.tracker(classnum, now);
+        	req.setAttribute("date", now);
+        	req.setAttribute("attendanceList", attendanceList);
         }
         ArrayList<String> classlist = new ArrayList<String>();
         for (int i=4;i<=6;i++) {
@@ -44,6 +51,8 @@ public class Attendance_TrackerAction extends Action {
         		classlist.add(date);
         	}
         }
+        
+        req.setAttribute("classnum", classnum);
         req.setAttribute("classList", classlist);
         req.getRequestDispatcher(
             "/main/teacher/attendance_tracker.jsp"
