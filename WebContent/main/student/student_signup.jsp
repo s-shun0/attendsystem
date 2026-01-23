@@ -57,7 +57,7 @@
                 </div>
 
 				<div class="mt-4">
-					<input class="w-25 btn btn-lg btn-primary" type="submit" name="login" value="ログイン画面へ"/>
+					<input class="w-25 btn btn-lg btn-primary" type="submit" name="login" value="サインアップ"/>
 				</div>
 			</form>
 			<a href="${pageContext.request.contextPath}/main/Login.action">戻る</a>
