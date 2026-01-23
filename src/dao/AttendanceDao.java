@@ -53,11 +53,15 @@ public class AttendanceDao extends Dao{
 		String job="";
 		
 		try{
-			statement = connection.prepareStatement(baseSql);
+			//教員の時はいかないようにする
+			statement = connection.prepareStatement(baseSql + "and job <> '教員'");
 
 			statement.setString(1,id);
 			statement.setString(2,password);
+			
+			//ここで対応する生徒がいるかの確認
 			ResultSet rSet = statement.executeQuery();
+			
 			if(rSet.next()){
 				Statement = connection.prepareStatement("insert into attendance (student_id,date,status,updatetime) values(?,?,?,?)");
 				Statement.setString(1,id);
