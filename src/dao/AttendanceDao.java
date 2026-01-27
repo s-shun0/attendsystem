@@ -17,7 +17,7 @@ import bean.Attendance;
 
 public class AttendanceDao extends Dao{
 
-	private String baseSql = "select * from users where id=? and password=?; ";
+	private String baseSql = "select * from users where id=? and password=?  ";
 
 	//qrコードで出席
 	public boolean attend(String id,String password) throws Exception{
@@ -54,7 +54,7 @@ public class AttendanceDao extends Dao{
 		
 		try{
 			//教員の時はいかないようにする
-			statement = connection.prepareStatement(baseSql + "and job <> '教員'");
+			statement = connection.prepareStatement(baseSql + "and  job<>'教員';");
 
 			statement.setString(1,id);
 			statement.setString(2,password);

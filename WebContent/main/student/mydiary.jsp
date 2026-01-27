@@ -8,7 +8,7 @@
  
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
-<title>出席管理表</title>
+<title>出席情報確認</title>
  
 <style>
     table {
@@ -59,7 +59,7 @@
 <body>
  
 <div>
-
+	<h1>出席情報確認</h1>
     <div class="user-info">
         <h2>${user.name}</h2>
         <p>学生番号: ${user.id}</p>

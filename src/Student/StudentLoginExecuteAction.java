@@ -49,7 +49,7 @@ public class StudentLoginExecuteAction extends Action {
             // ログイン成功
             // セッションにユーザー情報を保存
             session.setAttribute("id", id);
-
+            session.setAttribute("password", password);
             // 生徒情報に遷移
             RequestDispatcher dispatcher = req.getRequestDispatcher("MyDiary.action");
             dispatcher.forward(req, res);
