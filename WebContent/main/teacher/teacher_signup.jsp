@@ -30,7 +30,7 @@
 
 				<div>
 					<label for="sign_id" style="display:inline-block; width:150px;">職員番号</label>
-					<input type="text" id="sign_id" name="sign_id" value="${sign_id }" required maxlength="11" placeholder="学籍番号を入力してください" style="display:inline-block; width:300px;"/>
+					<input type="text" id="sign_id" name="sign_id" value="${sign_id }" required maxlength="11" placeholder="職員番号を入力してください" style="display:inline-block; width:300px;"/>
 				</div>
 				<br>
 				<div>
