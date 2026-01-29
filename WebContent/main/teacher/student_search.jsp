@@ -19,6 +19,16 @@
 		<!-- ヘッダー（JSで読み込み） -->
 		<div id="header"></div>
 		<h2 style="text-align: center;">学生編集</h2>
+		<!-- 一括削除ボタン -->
+		<form action="${pageContext.request.contextPath}/Teacher/StudentBulkDelete.action"
+		      method="post"
+		      onsubmit="return confirm('このクラスの生徒を全員削除します。本当によろしいですか？');"
+		      class="bulk-delete-form">
+		
+		    <button type="submit" class="bulk-delete-btn">
+		        このクラスの生徒を一括削除
+		    </button>
+		</form>
 		<!-- 検索エリア -->
 		<form action="${pageContext.request.contextPath}/Teacher/StudentSearch.action"
 		      method="get"

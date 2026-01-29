@@ -89,7 +89,7 @@
         <div class="info">
             <div class="info-row">
                 <span class="info-label">ユーザー名:</span>
-                <c:out default="user@example.com" value="${sessionScope.userName}"/>
+                <c:out  value="${userName}"/>
             </div>
             <div class="info-row">
                 <span class="info-label">出席時刻:</span>
