@@ -1,4 +1,4 @@
-package Student;
+package main.student;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -47,7 +47,6 @@
 </c:choose>
 
       <li><a href="/attendsystem/main/qrcode_display.jsp">QRコードジェネレーター</a></li>
-      <li><a href="/attendsystem/Teacher/Attendance_Tracker.action">出席トラッカー</a></li>
       <li><a href="/attendsystem/Teacher/OtherEdits.action">その他の編集</a></li>
     </ul>
   </nav>

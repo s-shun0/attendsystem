@@ -229,12 +229,12 @@ public class UserDao extends Dao{
 				statement = connection.prepareStatement(
 						"insert into users (id,name,email,password,job,class) values(?,?,?,?,?,?)");
 				//プリペアードスタートメントに値をバインド
-				statement.setString(1, user.getId());
+				statement.setInt(1, Integer.parseInt(user.getId()));
 				statement.setString(2,user.getName());
 				statement.setString(3, user.getEmail());
 				statement.setString(4,user.getPass());
 				statement.setString(5,user.getJob());
-				statement.setString(6,user.getClassnum());
+				statement.setInt(6,Integer.parseInt(user.getId()));
 			}
 			count = statement.executeUpdate();
 		} catch (Exception e){
