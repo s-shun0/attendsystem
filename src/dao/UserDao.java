@@ -214,54 +214,81 @@ public class UserDao extends Dao{
 	}
 
 	//生徒追加必要か不明
-	public boolean insert(User user) throws Exception{
-		Connection connection = getConnection();
+//	public boolean insert(User user) throws Exception{
+//		Connection connection = getConnection();
 		//プリペアードスタートメント
-		PreparedStatement statement = null;
-		int count = 0;
+//		PreparedStatement statement = null;
+//		int count = 0;
 
 
-		try{
-			User old = login(user.getId(),user.getPass());
-			if (old == null){
+//		try{
+//			User old = login(user.getId(),user.getPass());
+//			if (old == null){
 				//学生が存在しない場合
 				//プリペアードスタートメントにINSERT文をセット
-				statement = connection.prepareStatement(
-						"insert into users (id,name,email,password,job,class) values(?,?,?,?,?,?)");
+//				statement = connection.prepareStatement(
+//						"insert into users (id,name,email,password,job,class) values(?,?,?,?,?,?)");
 				//プリペアードスタートメントに値をバインド
-				statement.setInt(1, Integer.parseInt(user.getId()));
-				statement.setString(2,user.getName());
-				statement.setString(3, user.getEmail());
-				statement.setString(4,user.getPass());
-				statement.setString(5,user.getJob());
-				statement.setInt(6,Integer.parseInt(user.getId()));
-			}
-			count = statement.executeUpdate();
-		} catch (Exception e){
-			throw e;
-		} finally {
-			if (statement != null){
-				try {
-					statement.close();
-				} catch (SQLException sqle){
-					throw sqle;
-				}
-			}
-			if (connection != null){
-				try {
-					connection.close();
-				} catch (SQLException sqle){
-					throw sqle;
-				}
-			}
-		}
+//				statement.setInt(1, Integer.parseInt(user.getId()));
+//				statement.setString(2,user.getName());
+//				statement.setString(3, user.getEmail());
+//				statement.setString(4,user.getPass());
+//				statement.setString(5,user.getJob());
+//				statement.setInt(6,Integer.parseInt(user.getId()));
+//			}
+//			count = statement.executeUpdate();
+//		} catch (Exception e){
+//			throw e;
+//		} finally {
+//			if (statement != null){
+//				try {
+//					statement.close();
+//				} catch (SQLException sqle){
+//					throw sqle;
+//				}
+//			}
+//			if (connection != null){
+//				try {
+//					connection.close();
+//				} catch (SQLException sqle){
+//					throw sqle;
+//				}
+//			}
+//		}
 
-		if (count > 0){
-			return true;
-		} else{
-			return false;
-		}
+//		if (count > 0){
+//			return true;
+//		} else{
+//			return false;
+//		}
+//	}
+	
+	public boolean insert(User user) throws Exception {
+
+	    // まずID重複チェック（IDだけで判定）
+	    if (getById(user.getId()) != null) {
+	        return false; // 既に存在
+	    }
+
+	    String sql = "insert into users (id, name, email, password, job, class) values (?, ?, ?, ?, ?, ?)";
+
+	    try (Connection connection = getConnection();
+	         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+	        statement.setString(1, user.getId());
+	        statement.setString(2, user.getName());
+	        statement.setString(3, user.getEmail());
+	        statement.setString(4, user.getPass());
+	        statement.setString(5, user.getJob());
+
+	        // 教員はクラス不要なら 0（DBがNULL許容なら setNullでもOK）
+	        statement.setInt(6, 0);
+
+	        int count = statement.executeUpdate();
+	        return count > 0;
+	    }
 	}
+
 
 
 
@@ -317,6 +344,33 @@ public class UserDao extends Dao{
 	public String getUserId(String email) {
 		String userId = "";
 		return userId;
+	}
+
+	
+	
+	// idでユーザー取得（存在確認用）
+	public User getById(String id) throws Exception {
+	    User user = null;
+	    String sql = "select * from users where id=?";
+
+	    try (Connection connection = getConnection();
+	         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+	        statement.setString(1, id);
+
+	        try (ResultSet rSet = statement.executeQuery()) {
+	            if (rSet.next()) {
+	                user = new User();
+	                user.setId(rSet.getString("id"));
+	                user.setName(rSet.getString("name"));
+	                user.setEmail(rSet.getString("email"));
+	                user.setPass(rSet.getString("password"));
+	                user.setJob(rSet.getString("job"));
+	                user.setClassnum(rSet.getString("class"));
+	            }
+	        }
+	    }
+	    return user;
 	}
 
 }

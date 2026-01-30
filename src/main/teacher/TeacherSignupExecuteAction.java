@@ -6,8 +6,8 @@ import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import bean.Student;
-import dao.StudentDao;
+import bean.User;
+import dao.UserDao;
 import tool.Action;
 
 public class TeacherSignupExecuteAction extends Action {
@@ -15,76 +15,57 @@ public class TeacherSignupExecuteAction extends Action {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-        int ent_year = 0; // 画面で使うだけ（DBに列が無いなら保存しない）
-        String student_no = req.getParameter("no");
-        String student_name = req.getParameter("name");
-        String email = req.getParameter("email");   // 画面のnameに合わせて。mailなら mail に変える
-        String job = req.getParameter("job");       // 画面に無いなら固定で "生徒" にする
-        String classStr = req.getParameter("class_num");
+        // リクエストパラメータ取得
+        String id = req.getParameter("sign_id");     // 職員番号
+        String name = req.getParameter("name");      // 名前
+        String mail = req.getParameter("mail");      // メール
+        String pass = req.getParameter("sign_pass"); // パスワード
 
-        StudentDao studentDao = new StudentDao();
         Map<String, String> errors = new HashMap<>();
 
-        // ent_year（画面のnameに合わせて）
-        String entYearStr = req.getParameter("ent_year");
-        if (entYearStr != null && !entYearStr.isBlank()) {
-            try {
-                ent_year = Integer.parseInt(entYearStr);
-            } catch (NumberFormatException e) {
-                ent_year = 0;
-            }
+        // ===== バリデーション =====
+        if (id == null || id.isBlank()) {
+            errors.put("1", "職員番号が未入力です");
+        }
+        if (name == null || name.isBlank()) {
+            errors.put("2", "名前が未入力です");
+        }
+        if (mail == null || mail.isBlank()) {
+            errors.put("3", "メールアドレスが未入力です");
+        }
+        if (pass == null || pass.isBlank()) {
+            errors.put("4", "パスワードが未入力です");
         }
 
-        int classnum = 0;
-        if (classStr != null && !classStr.isBlank()) {
-            try {
-                classnum = Integer.parseInt(classStr);
-            } catch (NumberFormatException e) {
-                classnum = 0;
-            }
+        UserDao userDao = new UserDao();
+
+
+        // ===== エラーがある場合 =====
+        if (!errors.isEmpty()) {
+            req.setAttribute("errors", errors);
+            req.setAttribute("sign_id", id);
+            req.setAttribute("name", name);
+            req.setAttribute("mail", mail);
+            req.setAttribute("sign_pass", pass);
+
+            // サインアップ画面へ戻す
+            req.getRequestDispatcher("teacher_signup.jsp").forward(req, res);
+            return;
         }
-
-        // バリデーション
-        if (ent_year == 0) errors.put("1", "入学年度を選択してください");
-        if (student_no == null || student_no.isBlank()) errors.put("2", "学生番号を入力してください");
-        if (student_name == null || student_name.isBlank()) errors.put("3", "氏名を入力してください");
-        if (classnum == 0) errors.put("4", "クラスを選択してください");
-
-        // job が画面に無い場合は固定にしてOK
-        if (job == null || job.isBlank()) job = "生徒";
-
-        // 重複チェック
-        if (errors.isEmpty() && studentDao.getStudentById(student_no) != null) {
-            errors.put("5", "学生番号が重複しています");
-        }
-
-        // 登録
-        if (errors.isEmpty()) {
-            Student student = new Student();
-            student.setId(student_no);
-            student.setName(student_name);
-            student.setEmail(email);      
-            student.setJob(job);
-            student.setClassnum(classnum);
-        }
-
-        // 画面へ返す
-        req.setAttribute("errors", errors);
-        req.setAttribute("ent_year", ent_year);
-        req.setAttribute("no", student_no);
-        req.setAttribute("name", student_name);
-        req.setAttribute("email", email);
-        req.setAttribute("job", job);
-        req.setAttribute("class_num", classnum);
-
-        if (errors.isEmpty()) {
-            req.getRequestDispatcher("student_create_done.jsp").forward(req, res);
-        } else {
-        	req.getRequestDispatcher("student_create.jsp").forward(req, res);
+        
 
 
-        }
+        // ===== 登録処理 =====
+        User teacher = new User();
+        teacher.setId(id);
+        teacher.setName(name);
+        teacher.setEmail(mail);
+        teacher.setPass(pass);
+        teacher.setJob("教員");
+
+        userDao.insert(teacher);   // ※ UserDao に insert(User) がある前提
+
+        // ===== 完了画面へ =====
+        req.getRequestDispatcher("teacher_signup_done.jsp").forward(req, res);
     }
 }
-
-
