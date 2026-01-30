@@ -17,7 +17,9 @@
 				<p class="text-center">このままログインする方はこちらへ</p>
 				<p class="text-center">↓　↓　↓</p>
 				<br>				
-				<a href="..//Login.action">ログイン画面へ</a>
+				<a href="${pageContext.request.contextPath}/main/student/StudentLogin.action">ログイン画面へ
+</a>
+				
 			</div>
 		</div>
 	</c:param>
