@@ -26,7 +26,7 @@
 				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=51">51教室</a></li>
 				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=52">52教室</a></li>
 				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=53">53教室</a></li>
-				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=53">54教室</a></li>
+				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=54">54教室</a></li>
 				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=61">61教室</a></li>
 				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=62">62教室</a></li>
 				<li><a href="/attendsystem/Teacher/ClassSelectExecute.action?classnum=63">63教室</a></li>
