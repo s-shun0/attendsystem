@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
- 
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
-<title>出席情報確認</title>
- 
+
+<title>出席管理表</title>
+
 <style>
     table {
         border-collapse: collapse;
@@ -17,7 +17,7 @@
         table-layout: fixed; /* 全列を画面内に収める */
         margin-top: 20px;
     }
- 
+
     th, td {
         border: 1px solid #000;
         text-align: center;
@@ -25,29 +25,29 @@
         white-space: normal;
         word-break: break-all;
     }
- 
+
     th {
         background-color: #f0f0f0;
     }
- 
+
     .user-info {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
- 
+
     .user-info h2,
     .user-info p {
         margin: 0;
     }
- 
+
     /* スマホ用：とにかく全部入れる */
     @media (max-width: 768px) {
         .user-info {
             flex-direction: column;
             align-items: flex-start;
         }
- 
+
         th, td {
             padding: 2px;
             font-size: 10px;
@@ -55,22 +55,15 @@
     }
 </style>
 </head>
- 
+
 <body>
- 
+
 <div>
-	<h1>出席情報確認</h1>
+
     <div class="user-info">
         <h2>${user.name}</h2>
         <p>学生番号: ${user.id}</p>
     </div>
- 
- 
-	<div class="" >
-		<h3>${message}</h3>
-		<h3>${sum }</h3>
-	</div>
-
 
     <table>
         <thead>
@@ -85,7 +78,7 @@
                 <th>欠席累計</th>
             </tr>
         </thead>
- 
+
         <tbody>
             <c:forEach var="outerList" items="${attendanceList}" varStatus="status">
                 <tr>
@@ -94,7 +87,7 @@
                         <c:set var="month" value="${month - 12}" />
                     </c:if>
                     <td>${month}月</td>
- 
+
                     <c:forEach var="value" items="${outerList}" varStatus="loop">
                         <c:choose>
                             <c:when test="${loop.last}">
@@ -109,10 +102,8 @@
             </c:forEach>
         </tbody>
     </table>
- 
+
 </div>
- 
+
 </body>
 </html>
- 
- 
