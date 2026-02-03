@@ -50,12 +50,21 @@ public class LoginExecuteAction extends Action {
 
         if (user != null) {
             // ログイン成功
-            // セッションにユーザー情報を保存
-            session.setAttribute("user", user);
-
-            // MenuActionにフォワード
-            RequestDispatcher dispatcher = req.getRequestDispatcher("../Teacher/ClassSelect.action");
-            dispatcher.forward(req, res);
+            if (!user.getJob().equals("教員")) {
+            	errors.add("教員情報を入力して下さい");
+                req.setAttribute("errors", errors);
+                req.setAttribute("id", id);
+            	RequestDispatcher dispatcher = req.getRequestDispatcher("login.jsp");
+                dispatcher.forward(req, res);
+            }else {
+        	
+	        	// セッションにユーザー情報を保存
+	            session.setAttribute("user", user);
+	            
+	            // MenuActionにフォワード
+	            RequestDispatcher dispatcher = req.getRequestDispatcher("../Teacher/ClassSelect.action");
+	            dispatcher.forward(req, res);
+            }
         } else {
             // ログイン失敗
             errors.add("IDまたはパスワードが正しくありません");
