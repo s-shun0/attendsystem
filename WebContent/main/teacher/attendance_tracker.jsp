@@ -76,11 +76,14 @@
 			                        <c:when test="${attendance.status == 'present'}">
 			                            <span class="badge bg-success">出席</span>
 			                        </c:when>
-			                        <c:when test="${attendance.status == 'tardiness'}">
+			                        <c:when test="${attendance.status == 'late'}">
 			                            <span class="badge bg-warning">遅刻</span>
 			                        </c:when>
-			                        <c:when test="${attendance.status == 'leaving early'}">
+			                        <c:when test="${attendance.status == 'early_leave'}">
 			                            <span class="badge bg-danger">早退</span>
+			                        </c:when>
+			                        <c:when test="${attendance.status == 'absent'}">
+			                            <span class="badge bg-danger">欠席</span>
 			                        </c:when>
 			                        <c:otherwise>
 			                            <span class="badge bg-secondary">${attendance.status}</span>

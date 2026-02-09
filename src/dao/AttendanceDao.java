@@ -223,7 +223,7 @@ public class AttendanceDao extends Dao{
 
 	public ArrayList<Attendance> tracker(String class_,String date)throws Exception {
 		ArrayList<Attendance> list = new ArrayList<Attendance>();
-		Attendance att = new Attendance();
+
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		String classnum="";
@@ -255,7 +255,8 @@ public class AttendanceDao extends Dao{
 			ResultSet rSet = statement.executeQuery();
 
 
-			if (rSet.next()){
+			while(rSet.next()){
+				Attendance att = new Attendance();
 				//学生インスタンスに検索結果をセット
 				att.setId(rSet.getString("student_id"));
 				att.setName(rSet.getString("name"));
@@ -264,8 +265,6 @@ public class AttendanceDao extends Dao{
 				att.setUpdate(rSet.getString("updatetime"));
 				
 				list.add(att);
-			} else{
-				att = null;
 			}
 		} catch (Exception e){
 			throw e;
